@@ -11,21 +11,13 @@ import UIKit
 class CurrencyTableViewController: UITableViewController {
     //MARK: Properties
     
-    var currencies = [Currency]()
+//    var currencies = [Currency]()
+    var worldCurrencies = CurrencyArraySingleton.sharedInstance
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Load the country currencies
-        loadCurrencies()
-        
-        // update exchange rates of favorites
-        for currency in currencies {
-            if currency.fave {
-                currency.updateExchangeRates()
-            }
-        }
         
     }
 
@@ -41,9 +33,8 @@ class CurrencyTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // find the count of faves, since that's all this tableView displays
-        let count = currencies.filter{ $0.fave }.count
-        print("Number of faves is \(count)")
+        // Use the function from the Singleton
+        let count = worldCurrencies.numberOfFavorites()
         return count
     }
 
@@ -57,7 +48,7 @@ class CurrencyTableViewController: UITableViewController {
         }
 
         // Fetches the appropriate currency for the data source layout
-        let currency = currencies[indexPath.row]
+        let currency = worldCurrencies.currencyForIndex(index: indexPath.row)
 
         cell.countryLabel.text = currency.country
         cell.flagImageView.image = currency.flag
@@ -111,39 +102,4 @@ class CurrencyTableViewController: UITableViewController {
     }
     */
 
-    //MARK: Private Methods
-    
-    private func loadCurrencies() {
-        let flags = ["australia", "brazil", "canada", "egypt", "europe", "india", "israel", "japan", "mexico", "peru", "saudi", "singapore", "safrica", "skorea", "thailand", "china", "uae", "uk", "usa"]
-        let countries = ["AUD", "BRL", "CAD", "EGP", "EUR", "INR", "ILS", "JPY", "MXN", "PEN", "SAR", "SGD", "ZAR", "KRW", "THB", "CNY", "AED", "GBP", "USD"]
-        
-        if (flags.count == countries.count) {
-            for count in 0..<flags.count {
-                print("creating \(countries[count]) with flag \(flags[count])")
-                currencies.append(Currency(code: countries[count], flag: flags[count])!)
-            }
-            // Make a couple of them favorites
-            let defaultFaves = [18, 17, 2, 8, 4, 7]
-            for (index, countryIndex) in defaultFaves.enumerated() {
-                currencies[countryIndex].fave = true
-                currencies[countryIndex].favoritePosition = index
-            }
-            currencies.sort()
-            print("list all currencies, after loadCurrencies() called")
-            for c in currencies {
-                print(c.country)
-                print(c.flagFile)
-                if c.fave {
-                    print("fave")
-                } else {
-                    print("not fave")
-                }
-                print(String(c.favoritePosition))
-            }
-            
-        } else {
-            fatalError("Number of flags does not match number of country codes.")
-        }
-        
-    }
 }

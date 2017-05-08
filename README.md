@@ -18,10 +18,10 @@ This app implements these views:
 The only tricky part will be to enable a delegate observer during text input to prevent multiple decimal places being entered for one number. This technique has already been used on an earlier assignment. It's a nice feature to add to strictly numeric input.
 
 ### Currencies, Favorite Currencies, and last-used exchange rate persist across application runs
-Important classes in this app will implement the NSCoding protocol to "freeze-dry" the info, and this will be stored in the app's local area of the filesystem.
+Important classes in this app will implement the NSCoding protocol to "freeze-dry" the info, and this will be stored in the app's "application sandbox" area of the filesystem.
 
 The only part that won't be saved in this way will be the currently-selected row in the favorite currency table view
-and the convtert-to currency in the regular view for that currency.
+and the convert-to currency in the regular view for that currency.
 
 I could go whole-hog and save the last-used convert-to currency for every currency in the larger table. If I get one to work, why not all of them?
 

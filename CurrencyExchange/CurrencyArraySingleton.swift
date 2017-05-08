@@ -6,9 +6,78 @@
 //  Copyright © 2017 Daniel Henderson. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class CurrencyArraySingleton {
     static let sharedInstance = CurrencyArraySingleton()
-    private init() {} //This prevents others from using the default '()' initializer for this class.
+    var worldCurrencies = [Currency]()
+    let numFaves: Int = 6
+    
+    
+    private init() { //This prevents others from using the default '()' initializer for this class.
+        let itemArchiveURL: URL = { // Closure with signature of () -> URL
+            let documentsDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            let documentDirectory = documentsDirectories.first!
+            return documentDirectory.appendingPathComponent("worldCurrencies.archive")
+        }()
+        
+        // check if there's a file there
+        
+        // if not, load default currencies
+        loadCurrencies()
+        
+    }
+    
+    //MARK: Public Methods
+    func numberOfFavorites() -> Int {
+        // find the count of faves, since that's all this tableView displays
+        let count = worldCurrencies.filter{ $0.fave }.count
+        print("Number of faves is \(count)")
+        return count
+
+    }
+    
+    func currencyForIndex(index: Int) -> Currency {
+        return worldCurrencies[index]
+    }
+    
+    //MARK: Private Methods
+    
+    
+    
+    private func loadCurrencies() {
+        let flags = ["usa", "uk", "canada", "mexico", "europe", "japan", "australia", "brazil", "egypt", "india", "israel", "peru", "saudi", "singapore", "safrica", "skorea", "thailand", "china", "uae"]
+        let countries = ["USD",  "GBP", "CAD", "MXN", "EUR", "JPY", "AUD", "BRL", "EGP", "INR", "ILS", "PEN", "SAR", "SGD", "ZAR", "KRW", "THB", "CNY", "AED"]
+        
+        if (flags.count == countries.count) {
+            for count in 0..<flags.count {
+                print("creating \(countries[count]) with flag \(flags[count])")
+                worldCurrencies.append(Currency(code: countries[count], flag: flags[count], position: count)!)
+            }
+            // Make a couple of them favorites
+            
+            for counter in 0..<numFaves {
+                worldCurrencies[counter].fave = true
+            }
+            
+            worldCurrencies.sort()
+            print("list all currencies, after loadCurrencies() called")
+            for c in worldCurrencies {
+                print(c.country)
+                print(c.flagFile)
+                if c.fave {
+                    print("fave")
+                } else {
+                    print("not fave")
+                }
+                print(String(c.favoritePosition))
+            }
+            
+        } else {
+            fatalError("Number of flags does not match number of country codes.")
+        }
+        
+    }
+
 }

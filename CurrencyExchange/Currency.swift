@@ -90,6 +90,7 @@ class Currency: NSObject, NSCoding, Comparable {
     var flagFile: String
     var favoritePosition: Int
     var fave: Bool = false
+    var lastUpdate: NSDate
 
     // I think this is a dictionary with ISOCode as the key, and an ExchangeRate struct as the value
     var conversions = Dictionary<String, ExchangeRate>()
@@ -118,7 +119,8 @@ class Currency: NSObject, NSCoding, Comparable {
         self.flag = UIImage(named: flag)!
         self.fave = fave
         self.favoritePosition = favoritePosition
-        
+        self.lastUpdate = NSDate()
+
         super.init()
 
         if self.fave {
@@ -132,13 +134,16 @@ class Currency: NSObject, NSCoding, Comparable {
         }
     }
     
-    init?(code: String, flag: String) {
+    // Basic initializer, doesn't look up anything.
+    init?(code: String, flag: String, position: Int) {
         self.country = codeToCountryName(code: code)
         self.code = code
         self.flagFile = flag
         self.flag = UIImage(named: flag)!
         self.fave = false
-        self.favoritePosition = 0
+        self.favoritePosition = position
+        self.lastUpdate = NSDate()
+
     }
     
     //MARK: NSCoding
