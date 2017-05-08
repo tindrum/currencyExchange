@@ -13,19 +13,28 @@ class CurrencyArraySingleton {
     static let sharedInstance = CurrencyArraySingleton()
     var worldCurrencies = [Currency]()
     let numFaves: Int = 6
-    
+
+    let itemArchiveURL: URL = { // Closure with signature of () -> URL
+        let documentsDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = documentsDirectories.first!
+        return documentDirectory.appendingPathComponent("worldCurrencies.archive")
+    }()
+
     
     private init() { //This prevents others from using the default '()' initializer for this class.
-        let itemArchiveURL: URL = { // Closure with signature of () -> URL
-            let documentsDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let documentDirectory = documentsDirectories.first!
-            return documentDirectory.appendingPathComponent("worldCurrencies.archive")
-        }()
         
-        // check if there's a file there
-        
-        // if not, load default currencies
-        loadCurrencies()
+        if let archivedItems = NSKeyedUnarchiver.unarchiveObject(withFile: itemArchiveURL.path) as? [Currency] {
+            print("UNARCHIVING CURRENCIES")
+            worldCurrencies = archivedItems
+            // Sort them after reloading them
+            worldCurrencies.sort()
+
+            
+        } else {
+            // if not, load default currencies
+            print("CREATING DEFAULT CURRENCIES")
+            loadCurrencies()
+        }
         
     }
     
@@ -41,6 +50,15 @@ class CurrencyArraySingleton {
     func currencyForIndex(index: Int) -> Currency {
         return worldCurrencies[index]
     }
+    
+    
+    //MARK: Persistence Methods
+    
+    func saveChanges() -> Bool {
+        print("Saving world currency data to: \(itemArchiveURL.path)")
+        return NSKeyedArchiver.archiveRootObject(worldCurrencies, toFile: itemArchiveURL.path)
+    }
+    
     
     //MARK: Private Methods
     
