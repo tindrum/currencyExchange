@@ -17,6 +17,7 @@
 		9D624EAA1EC02EF6003DF9B3 /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D624EA91EC02EF6003DF9B3 /* CurrencyTableViewController.swift */; };
 		9D624EAC1EC04CDC003DF9B3 /* YQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D624EAB1EC04CDC003DF9B3 /* YQL.swift */; };
 		9D624EAE1EC04D3B003DF9B3 /* CurrencyLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D624EAD1EC04D3B003DF9B3 /* CurrencyLookup.swift */; };
+		9D84B7271EC1109200819F22 /* CurrencyArraySingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D84B7261EC1109200819F22 /* CurrencyArraySingleton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		9D624EA91EC02EF6003DF9B3 /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
 		9D624EAB1EC04CDC003DF9B3 /* YQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YQL.swift; sourceTree = "<group>"; };
 		9D624EAD1EC04D3B003DF9B3 /* CurrencyLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyLookup.swift; sourceTree = "<group>"; };
+		9D84B7261EC1109200819F22 /* CurrencyArraySingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyArraySingleton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				9D624E8F1EBFE630003DF9B3 /* AppDelegate.swift */,
 				9D624E911EBFE630003DF9B3 /* WelcomeViewController.swift */,
 				9D624EA31EBFE980003DF9B3 /* Currency.swift */,
+				9D84B7261EC1109200819F22 /* CurrencyArraySingleton.swift */,
 				9D624EA71EC029E6003DF9B3 /* CurrencyTableViewCell.swift */,
 				9D624EA91EC02EF6003DF9B3 /* CurrencyTableViewController.swift */,
 				9D624EAB1EC04CDC003DF9B3 /* YQL.swift */,
@@ -151,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D84B7271EC1109200819F22 /* CurrencyArraySingleton.swift in Sources */,
 				9D624EA81EC029E6003DF9B3 /* CurrencyTableViewCell.swift in Sources */,
 				9D624EA41EBFE980003DF9B3 /* Currency.swift in Sources */,
 				9D624EAE1EC04D3B003DF9B3 /* CurrencyLookup.swift in Sources */,

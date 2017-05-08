@@ -46,11 +46,6 @@ class ExchangeRate: NSObject, NSCoding {
     public var lastUpdated: NSDate
     
     //MARK: Types
-    struct PropertyKey {
-        static let countryCode = "countryCode"
-        static let rate = "rate"
-        static let lastUpdated = "lastUpdated"
-    }
     
     init(countryCode: String, rate: Double, lastUpdated: NSDate) {
         self.countryCode = countryCode
@@ -60,21 +55,21 @@ class ExchangeRate: NSObject, NSCoding {
     
     //MARK: NSCoding
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(countryCode, forKey: PropertyKey.countryCode)
-        aCoder.encode(rate, forKey: PropertyKey.rate)
-        aCoder.encode(lastUpdated, forKey: PropertyKey.lastUpdated)
+        aCoder.encode(countryCode, forKey: "countryCode")
+        aCoder.encode(rate, forKey: "rate")
+        aCoder.encode(lastUpdated, forKey: "lastUpdated")
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         // The name is required. If we cannot decode a name string, the initializer should fail.
-        guard let countryCode = aDecoder.decodeObject(forKey: PropertyKey.countryCode) as? String else {
+        guard let countryCode = aDecoder.decodeObject(forKey: "countryCode") as? String else {
             os_log("Unable to decode the ISO code for ExchangeRate object.", log: OSLog.default, type: .debug)
             return nil
         }
 
-        let rate = aDecoder.decodeObject(forKey: PropertyKey.rate) as? Double
+        let rate = aDecoder.decodeObject(forKey: "rate") as? Double
         
-        guard let date:NSDate = aDecoder.decodeObject(forKey: PropertyKey.lastUpdated) as? NSDate else {
+        guard let date:NSDate = aDecoder.decodeObject(forKey: "lastUpdated") as? NSDate else {
                 os_log("Unable to decode lastUpdated for ExchangeRate object.", log: OSLog.default, type: .debug)
             return nil
             }
@@ -84,52 +79,6 @@ class ExchangeRate: NSObject, NSCoding {
     
 }
 
-func codeToCountryName(code: String) -> String {
-    switch code {
-    case "USD":
-        return "United States"
-    case "AUD":
-        return "Australia"
-    case "BRL":
-        return "Brazil"
-    case "CAD":
-        return "Canada"
-    case "EGP":
-        return "Egypt"
-    case "INR":
-        return "India"
-    case "ILS":
-        return "Israel"
-    case "JPY":
-        return "Japan"
-    case "MXN":
-        return "Mexico"
-    case "PEN":
-        return "Peru"
-    case "SAR":
-        return "Saudi Arabia"
-    case "SGD":
-        return "Singapore"
-    case "ZAR":
-        return "South Africa"
-    case "KRW":
-        return "South Korea"
-    case "THB":
-        return "Thailand"
-    case "CNY":
-        return "China"
-    case "AED":
-        return "United Arab Emirates"
-    case "GBP":
-        return "United Kingdom"
-    case "EUR":
-        return "Eurozone"
-
-    // Not one of my chosen currencies.
-    default:
-        fatalError("No country for this ISO Code")
-    }
-}
 
 class Currency: NSObject, NSCoding, Comparable {
     //MARK: Properties
@@ -149,13 +98,13 @@ class Currency: NSObject, NSCoding, Comparable {
     
     //MARK: Types
     
-    struct PropertyKey {
-        static let code = "code"
-        static let flag = "flag"
-        static let fave = "fave"
-        static let favoritePosition = "favoritePosition"
-        static let conversions = "conversions"
-    }
+//    struct PropertyKey {
+//        static let code = "code"
+//        static let flag = "flag"
+//        static let fave = "fave"
+//        static let favoritePosition = "favoritePosition"
+//        static let conversions = "conversions"
+//    }
     
     
     
@@ -194,28 +143,30 @@ class Currency: NSObject, NSCoding, Comparable {
     
     //MARK: NSCoding
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(code, forKey: PropertyKey.code)
-        aCoder.encode(flag, forKey: PropertyKey.flag)
-        aCoder.encode(fave, forKey: PropertyKey.fave)
-        aCoder.encode(favoritePosition, forKey: PropertyKey.favoritePosition)
-        aCoder.encode(conversions, forKey: PropertyKey.conversions)
+        aCoder.encode(code, forKey: "code")
+        aCoder.encode(flagFile, forKey: "flagFile")
+        aCoder.encode(fave, forKey: "fave")
+        aCoder.encode(favoritePosition, forKey: "favoritePosition")
+        aCoder.encode(conversions, forKey: "conversions")
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         // The ISO code is required. If we cannot decode it, the initializer should fail.
-        guard let code = aDecoder.decodeObject(forKey: PropertyKey.code) as? String else {
+        guard let code = aDecoder.decodeObject(forKey: "code") as? String else {
             os_log("Unable to decode ISO Code for a Currency object.", log: OSLog.default, type: .debug)
             return nil
         }
-        let flag = aDecoder.decodeObject(forKey: PropertyKey.flag) as? String
+        let flagFile = aDecoder.decodeObject(forKey: "flagFile") as? String
+//        let flag = UIImage(named: flagFile!)!
+
         
-        let fave = aDecoder.decodeBool(forKey: PropertyKey.fave)
-        let favoritePosition = aDecoder.decodeInteger(forKey: PropertyKey.favoritePosition)
+        let fave = aDecoder.decodeBool(forKey: "fave")
+        let favoritePosition = aDecoder.decodeInteger(forKey: "favoritePosition")
         
-        let conversions = aDecoder.decodeObject(forKey: PropertyKey.conversions) as? Dictionary<String, ExchangeRate>
+        let conversions = aDecoder.decodeObject(forKey: "conversions") as? Dictionary<String, ExchangeRate>
         
         // Must call designated initializer.
-        self.init(code: code, flag: flag!, favoritePosition: favoritePosition, fave: fave, exchangeRates: conversions!)
+        self.init(code: code, flag: flagFile!, favoritePosition: favoritePosition, fave: fave, exchangeRates: conversions!)
     }
     
     //MARK: Comparable protocol implementation
@@ -366,3 +317,53 @@ class Currency: NSObject, NSCoding, Comparable {
     }
 
 }
+
+//MARK: Helpers
+
+func codeToCountryName(code: String) -> String {
+    switch code {
+    case "USD":
+        return "United States"
+    case "AUD":
+        return "Australia"
+    case "BRL":
+        return "Brazil"
+    case "CAD":
+        return "Canada"
+    case "EGP":
+        return "Egypt"
+    case "INR":
+        return "India"
+    case "ILS":
+        return "Israel"
+    case "JPY":
+        return "Japan"
+    case "MXN":
+        return "Mexico"
+    case "PEN":
+        return "Peru"
+    case "SAR":
+        return "Saudi Arabia"
+    case "SGD":
+        return "Singapore"
+    case "ZAR":
+        return "South Africa"
+    case "KRW":
+        return "South Korea"
+    case "THB":
+        return "Thailand"
+    case "CNY":
+        return "China"
+    case "AED":
+        return "United Arab Emirates"
+    case "GBP":
+        return "United Kingdom"
+    case "EUR":
+        return "Eurozone"
+        
+    // Not one of my chosen currencies.
+    default:
+        fatalError("No country for this ISO Code")
+    }
+}
+
