@@ -23,7 +23,7 @@ class CurrencyTableViewController: UITableViewController {
         // update exchange rates of favorites
         for currency in currencies {
             if currency.fave {
-                currency.conversions = Currency.exchangeRateLookup(fromCode: currency.code)
+                currency.updateExchangeRates()
             }
         }
         
@@ -120,7 +120,7 @@ class CurrencyTableViewController: UITableViewController {
         if (flags.count == countries.count) {
             for count in 0..<flags.count {
                 print("creating \(countries[count]) with flag \(flags[count])")
-                currencies.append(Currency(code: ISOCode(rawValue: countries[count])!, flag: flags[count])!)
+                currencies.append(Currency(code: countries[count], flag: flags[count])!)
             }
             // Make a couple of them favorites
             let defaultFaves = [18, 17, 2, 8, 4, 7]

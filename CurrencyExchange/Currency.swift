@@ -41,7 +41,7 @@ public enum ISOCode: String {
 }
 
 class ExchangeRate: NSObject, NSCoding {
-    public var countryCode: ISOCode
+    public var countryCode: String
     public var rate: Double
     public var lastUpdated: NSDate
     
@@ -52,7 +52,7 @@ class ExchangeRate: NSObject, NSCoding {
         static let lastUpdated = "lastUpdated"
     }
     
-    init(countryCode: ISOCode, rate: Double, lastUpdated: NSDate) {
+    init(countryCode: String, rate: Double, lastUpdated: NSDate) {
         self.countryCode = countryCode
         self.rate = rate
         self.lastUpdated = lastUpdated
@@ -67,7 +67,7 @@ class ExchangeRate: NSObject, NSCoding {
     
     required convenience init?(coder aDecoder: NSCoder) {
         // The name is required. If we cannot decode a name string, the initializer should fail.
-        guard let countryCode = aDecoder.decodeObject(forKey: PropertyKey.countryCode) as? ISOCode else {
+        guard let countryCode = aDecoder.decodeObject(forKey: PropertyKey.countryCode) as? String else {
             os_log("Unable to decode the ISO code for ExchangeRate object.", log: OSLog.default, type: .debug)
             return nil
         }
@@ -84,45 +84,45 @@ class ExchangeRate: NSObject, NSCoding {
     
 }
 
-func codeToCountryName(code: ISOCode) -> String {
+func codeToCountryName(code: String) -> String {
     switch code {
-    case .USD:
+    case "USD":
         return "United States"
-    case .AUD:
+    case "AUD":
         return "Australia"
-    case .BRL:
+    case "BRL":
         return "Brazil"
-    case .CAD:
+    case "CAD":
         return "Canada"
-    case .EGP:
+    case "EGP":
         return "Egypt"
-    case .INR:
+    case "INR":
         return "India"
-    case .ILS:
+    case "ILS":
         return "Israel"
-    case .JPY:
+    case "JPY":
         return "Japan"
-    case .MXN:
+    case "MXN":
         return "Mexico"
-    case .PEN:
+    case "PEN":
         return "Peru"
-    case .SAR:
+    case "SAR":
         return "Saudi Arabia"
-    case .SGD:
+    case "SGD":
         return "Singapore"
-    case .ZAR:
+    case "ZAR":
         return "South Africa"
-    case .KRW:
+    case "KRW":
         return "South Korea"
-    case .THB:
+    case "THB":
         return "Thailand"
-    case .CNY:
+    case "CNY":
         return "China"
-    case .AED:
+    case "AED":
         return "United Arab Emirates"
-    case .GBP:
+    case "GBP":
         return "United Kingdom"
-    case .EUR:
+    case "EUR":
         return "Eurozone"
 
     // Not one of my chosen currencies.
@@ -135,7 +135,7 @@ class Currency: NSObject, NSCoding, Comparable {
     //MARK: Properties
     
     var country: String
-    var code: ISOCode
+    var code: String
     // only archive the image filename, so store that too
     var flag: UIImage?
     var flagFile: String
@@ -143,7 +143,7 @@ class Currency: NSObject, NSCoding, Comparable {
     var fave: Bool = false
 
     // I think this is a dictionary with ISOCode as the key, and an ExchangeRate struct as the value
-    var conversions = Dictionary<ISOCode, ExchangeRate>()
+    var conversions = Dictionary<String, ExchangeRate>()
     
     
     
@@ -161,7 +161,7 @@ class Currency: NSObject, NSCoding, Comparable {
     
     //MARK: Initialization
     
-    init?(code: ISOCode, flag: String, favoritePosition: Int, fave: Bool, exchangeRates: Dictionary<ISOCode, ExchangeRate>) {
+    init?(code: String, flag: String, favoritePosition: Int, fave: Bool, exchangeRates: Dictionary<String, ExchangeRate>) {
         self.country = codeToCountryName(code: code)
         // This will fail in the function if there's no ISO code for country
         self.code = code
@@ -174,8 +174,8 @@ class Currency: NSObject, NSCoding, Comparable {
 
         if self.fave {
         // look up the conversions to other currencies, fill in the dictionary with its items.
-            print("lookin up exchange rates for \(self.country) (code \(self.code.rawValue))")
-            self.conversions = Currency.exchangeRateLookup(fromCode: self.code)
+            print("lookin up exchange rates for \(self.country) (code \(self.code))")
+            self.conversions = exchangeRateLookup(fromCode: self.code)
         } else {
             // just use the existing currency exchange rates
             
@@ -183,7 +183,7 @@ class Currency: NSObject, NSCoding, Comparable {
         }
     }
     
-    init?(code: ISOCode, flag: String) {
+    init?(code: String, flag: String) {
         self.country = codeToCountryName(code: code)
         self.code = code
         self.flagFile = flag
@@ -203,7 +203,7 @@ class Currency: NSObject, NSCoding, Comparable {
     
     required convenience init?(coder aDecoder: NSCoder) {
         // The ISO code is required. If we cannot decode it, the initializer should fail.
-        guard let code = aDecoder.decodeObject(forKey: PropertyKey.code) as? ISOCode else {
+        guard let code = aDecoder.decodeObject(forKey: PropertyKey.code) as? String else {
             os_log("Unable to decode ISO Code for a Currency object.", log: OSLog.default, type: .debug)
             return nil
         }
@@ -212,7 +212,7 @@ class Currency: NSObject, NSCoding, Comparable {
         let fave = aDecoder.decodeBool(forKey: PropertyKey.fave)
         let favoritePosition = aDecoder.decodeInteger(forKey: PropertyKey.favoritePosition)
         
-        let conversions = aDecoder.decodeObject(forKey: PropertyKey.conversions) as? Dictionary<ISOCode, ExchangeRate>
+        let conversions = aDecoder.decodeObject(forKey: PropertyKey.conversions) as? Dictionary<String, ExchangeRate>
         
         // Must call designated initializer.
         self.init(code: code, flag: flag!, favoritePosition: favoritePosition, fave: fave, exchangeRates: conversions!)
@@ -235,8 +235,8 @@ class Currency: NSObject, NSCoding, Comparable {
                 // both are faves, compare favoritePosition
                 if lhs.favoritePosition == rhs.favoritePosition {
                     // find order by string value of ISO Code
-                    left = lhs.code.rawValue
-                    right = rhs.code.rawValue
+                    left = lhs.code
+                    right = rhs.code
                 } else if lhs.favoritePosition < rhs.favoritePosition {
                     return true
                 } else {
@@ -251,8 +251,8 @@ class Currency: NSObject, NSCoding, Comparable {
                 // neither are faves, compare favoritePosition
                 if lhs.favoritePosition == rhs.favoritePosition {
                     // find order by string value of ISO Code
-                    left = lhs.code.rawValue
-                    right = rhs.code.rawValue
+                    left = lhs.code
+                    right = rhs.code
                 } else if lhs.favoritePosition < rhs.favoritePosition {
                     return true
                 } else {
@@ -272,7 +272,7 @@ class Currency: NSObject, NSCoding, Comparable {
         if lhs == rhs {
             return true
         }
-        if lhs.fave == rhs.fave && lhs.favoritePosition == rhs.favoritePosition && lhs.code.rawValue == rhs.code.rawValue {
+        if lhs.fave == rhs.fave && lhs.favoritePosition == rhs.favoritePosition && lhs.code == rhs.code {
             return true
         } else {
             return false
@@ -308,17 +308,21 @@ class Currency: NSObject, NSCoding, Comparable {
 //        return nil
 //    }
 
-    static func exchangeRateLookup(fromCode: ISOCode ) -> Dictionary<ISOCode, ExchangeRate> {
+    func updateExchangeRates() {
+        self.conversions = exchangeRateLookup(fromCode: self.code)
+    }
+
+    func exchangeRateLookup(fromCode: String ) -> Dictionary<String, ExchangeRate> {
         // Cargo-culted from:
         //  Created by David McLaren on 4/2/17.
         //  Copyright © 2017 David McLaren. All rights reserved.
-        var conversions: Dictionary<ISOCode, ExchangeRate> = [:]
+        var conversions: Dictionary<String, ExchangeRate> = [:]
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         
         let myYQL = YQL()
-        let partialQueryString:String = self.buildQueryParameters(fromCode)
-        let queryString:String = "select * from yahoo.finance.xchange where pair in (" +  "\" + ")"
+        let partialQueryString:String = "\"USDGBP\", \"USDCAD\", \"USDEUR\", \"USDJPY\", \"USDMXN\""
+        let queryString:String = "select * from yahoo.finance.xchange where pair in (" +  partialQueryString + ")"
         
         // Network session is asyncronous so use a closure to act upon data once data is returned
         myYQL.query(queryString) { jsonDict in
@@ -326,7 +330,7 @@ class Currency: NSObject, NSCoding, Comparable {
             // jsonDict["query"] results in an Any? object
             // to extract data, cast to a new dictionary (or other data type)
             // repeat this process to pull out more specific information
-            var code: ISOCode
+            var code: String
             var date: NSDate
             var rate: Double
             
@@ -334,15 +338,22 @@ class Currency: NSObject, NSCoding, Comparable {
             let rates = queryDict["results"] as! [String: Any]
             let r = rates["rate"] as! [Dictionary<String,String>]
             for i in r {
-                code = parseCodeFromJSONNameField(i["Name"]!) as! String
-                rate = Double(i["rate"]!)!
+                code = i["Name"]!
+                let rateText:String = i["Rate"]!
                 date = dateFormatter.date(from: i["Date"]!)! as NSDate
-                print("the rate is:")
-                print(i["Rate"]!)
+                print("*********************")
                 print("the Name is:")
                 print(i["Name"]!)
                 print("the date is:")
                 print(i["Date"]!)
+                print("the formatted date is:")
+                print(String(describing: date))
+                print("the rateText is:")
+                print(i["Rate"]!)
+                print("the rate is:")
+                rate = Double(rateText)!
+                print(String(rate))
+                print("*********************")
                 let exchangeRateObject: ExchangeRate = ExchangeRate(countryCode: code, rate: rate, lastUpdated: date)
                 conversions[code] = exchangeRateObject
                 
