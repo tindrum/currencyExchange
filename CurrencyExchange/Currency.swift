@@ -76,6 +76,14 @@ class ExchangeRate: NSObject, NSCoding {
         self.init(countryCode: countryCode, rate: rate!, lastUpdated: date)
     }
     
+    func logExchangeRate() {
+        print("**************")
+        print("Logging exchange rate object \(self.countryCode) \(self.rate) \(self.lastUpdated)")
+//        print(self.countryCode)
+//        print(self.rate)
+//        print(self.lastUpdated)
+//        print("...............")
+    }
     
 }
 
@@ -238,34 +246,10 @@ class Currency: NSObject, NSCoding, Comparable {
     
     //MARK: YQL query
 
-//    func buildQueryParameters(isoCode: ISOCode) -> String {
-//        let otherCodes = ISOCode.allValues
-//        let thisCode = isoCode.rawValue
-//        var queryString: String = ""
-//        
-//        for code in otherCodes {
-//            queryString += "\"" + thisCode + code + "\", "
-//        }
-//        let resultString = queryString.substring(from:queryString.index(queryString.endIndex, offsetBy: -2))
-//        
-//        print("The string that will be sent to Yahoo is:")
-//        print(resultString)
-//        return resultString
-//        
-//    }
-//
-//    
-//    func parseCodeFromJSONNameField(code: String) -> ISOCode? {
-//        var last3 = code.substring(from:code.index(code.endIndex, offsetBy: -3))
-//        if last3.characters.count == 3 {
-//            last3 = String(describing: ISOCode(rawValue: last3))
-//            return ISOCode(rawValue: last3)
-//        }
-//        return nil
-//    }
 
     func updateExchangeRates() {
         self.conversions = exchangeRateLookup(fromCode: self.code)
+        print("The country \(self.country) claims to have \(self.conversions.count) exchange rates in it")
     }
 
     func exchangeRateLookup(fromCode: String ) -> Dictionary<String, ExchangeRate> {
@@ -277,9 +261,20 @@ class Currency: NSObject, NSCoding, Comparable {
         dateFormatter.dateFormat = "MM/dd/yyyy"
         
         let myYQL = YQL()
-        let partialQueryString:String = "\"USDGBP\", \"USDCAD\", \"USDEUR\", \"USDJPY\", \"USDMXN\""
-        let queryString:String = "select * from yahoo.finance.xchange where pair in (" +  partialQueryString + ")"
-        
+        let allValues = ["USD", "AUD", "BRL", "CAD", "EGP", "INR", "ILS", "JPY", "MXN", "PEN", "SAR", "SGD", "ZAR", "KRW", "THB", "CNY", "AED", "GBP", "EUR"]
+        var partialQueryString:String = "" // = "\"USDGBP\", \"USDCAD\", \"USDEUR\", \"USDJPY\", \"USDMXN\""
+        for val in allValues.enumerated() {
+            partialQueryString += "\"" + fromCode + val.element + "\", "
+        }
+
+//        let startIndex = partialQueryString.index(partialQueryString.startIndex)
+        let endIndex = partialQueryString.index(partialQueryString.endIndex, offsetBy: -2)
+        let truncated = partialQueryString.substring(to: endIndex)
+
+        var queryString = "select * from yahoo.finance.xchange where pair in ("
+        queryString +=  truncated
+        queryString += ")"
+        print(queryString)
         // Network session is asyncronous so use a closure to act upon data once data is returned
         myYQL.query(queryString) { jsonDict in
             // With the resulting jsonDict, pull values out
@@ -292,35 +287,53 @@ class Currency: NSObject, NSCoding, Comparable {
             
             let queryDict = jsonDict["query"] as! [String: Any]
             let rates = queryDict["results"] as! [String: Any]
-            let r = rates["rate"] as! [Dictionary<String,String>]
+            let r = rates["rate"] as! [Dictionary<String,Any>]
             for i in r {
-                code = i["Name"]!
-                let rateText:String = i["Rate"]!
-                date = dateFormatter.date(from: i["Date"]!)! as NSDate
-                print("*********************")
-                print("the Name is:")
-                print(i["Name"]!)
-                print("the date is:")
-                print(i["Date"]!)
-                print("the formatted date is:")
-                print(String(describing: date))
-                print("the rateText is:")
-                print(i["Rate"]!)
-                print("the rate is:")
+                print("Parsing YAHOO Finance data for \(fromCode)")
+                let oneCurrencyRecord = i as! [String: Any]
+                code = oneCurrencyRecord["Name"]! as! String
+                let rateText:String = oneCurrencyRecord["Rate"]! as! String
+                
+                // does it crash when trying to access the key "Date",
+                // or when it tries to force-unwrap it?
+                let dateString:String = oneCurrencyRecord["Date"] as! String
+                if dateString != "N/A"{
+                    date = dateFormatter.date(from: dateString)! as NSDate
+                } else {
+                    date = NSDate()
+                }
+//                print("*********************")
+//                print("the Name is:")
+//                print(i["Name"]!)
+//                print("the date is:")
+//                print(i["Date"]!)
+//                print("the formatted date is:")
+//                print(String(describing: date))
+//                print("the rateText is:")
+//                print(i["Rate"]!)
+//                print("the rate is:")
                 rate = Double(rateText)!
-                print(String(rate))
-                print("*********************")
+//                print(String(rate))
+//                print("*********************")
                 let exchangeRateObject: ExchangeRate = ExchangeRate(countryCode: code, rate: rate, lastUpdated: date)
+                exchangeRateObject.logExchangeRate()
                 conversions[code] = exchangeRateObject
                 
             }
             
         }
-        
+        for conversion in conversions {
+            print(conversion.key)
+            print(conversion.value)
+        }
         
         return conversions
     }
 
+    //MARK: Debugging methods
+    func numberOfConversions(forCurrency: Currency) -> Int {
+        return forCurrency.conversions.count
+    }
 }
 
 //MARK: Helpers

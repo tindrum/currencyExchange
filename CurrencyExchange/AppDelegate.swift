@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+    var worldCurrencies = CurrencyArraySingleton.sharedInstance
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -43,6 +43,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        print("applicationDidBecomeActive")
+        print("Number of currency faves is \(worldCurrencies.numFaves)")
+        for index in 0..<worldCurrencies.numberOfCurrencies() {
+            let currency = worldCurrencies.currencyForIndex(index: index)
+            print("\(currency.country) has \(currency.conversions.count) conversions in its dictionary")
+        }
+        
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

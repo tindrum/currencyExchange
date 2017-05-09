@@ -35,16 +35,31 @@ class CurrencyArraySingleton {
             print("CREATING DEFAULT CURRENCIES")
             loadCurrencies()
         }
-        
+        print("faves are:")
+        let faves = worldCurrencies.filter{ $0.fave }
+        for fave in faves {
+            print("updating faves for:")
+            print(fave.country)
+            fave.updateExchangeRates()
+            print(fave.country)
+            print("count of conversions:")
+            print(fave.conversions.count)
+        }
     }
     
     //MARK: Public Methods
     func numberOfFavorites() -> Int {
         // find the count of faves, since that's all this tableView displays
         let count = worldCurrencies.filter{ $0.fave }.count
-        print("Number of faves is \(count)")
         return count
-
+        
+    }
+    
+    func numberOfCurrencies() -> Int {
+        // find the count of faves, since that's all this tableView displays
+        let count = worldCurrencies.count
+        return count
+        
     }
     
     func currencyForIndex(index: Int) -> Currency {
