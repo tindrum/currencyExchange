@@ -134,7 +134,7 @@ class Currency: NSObject, NSCoding, Comparable {
         if self.fave {
         // look up the conversions to other currencies, fill in the dictionary with its items.
             print("lookin up exchange rates for \(self.country) (code \(self.code))")
-            self.conversions = exchangeRateLookup(fromCode: self.code)
+            self.exchangeRateLookup(fromCode: self.code)
         } else {
             // just use the existing currency exchange rates
             
@@ -246,13 +246,20 @@ class Currency: NSObject, NSCoding, Comparable {
     
     //MARK: YQL query
 
+    func addExchangeRate(key: String, rate: ExchangeRate) {
+        print("adding...")
+        rate.logExchangeRate()
+        self.conversions[key] = rate
+        print("added one exchange rate to \(self.country)")
+    }
 
     func updateExchangeRates() {
-        self.conversions = exchangeRateLookup(fromCode: self.code)
+        self.exchangeRateLookup(fromCode: self.code)
         print("The country \(self.country) claims to have \(self.conversions.count) exchange rates in it")
     }
 
-    func exchangeRateLookup(fromCode: String ) -> Dictionary<String, ExchangeRate> {
+//    func exchangeRateLookup(fromCode: String, forCurrencyObject: Currency ) -> Dictionary<String, ExchangeRate> {
+        func exchangeRateLookup(fromCode: String)  {
         // Cargo-culted from:
         //  Created by David McLaren on 4/2/17.
         //  Copyright © 2017 David McLaren. All rights reserved.
@@ -317,17 +324,24 @@ class Currency: NSObject, NSCoding, Comparable {
 //                print("*********************")
                 let exchangeRateObject: ExchangeRate = ExchangeRate(countryCode: code, rate: rate, lastUpdated: date)
                 exchangeRateObject.logExchangeRate()
+                self.addExchangeRate(key: code, rate: exchangeRateObject)
                 conversions[code] = exchangeRateObject
                 
             }
             
         }
-        for conversion in conversions {
-            print(conversion.key)
-            print(conversion.value)
-        }
-        
-        return conversions
+
+//        print("*********************")
+//        print("*  ALL CONVERSIONS  *")
+//
+//        for conversion in conversions {
+//            print(conversion.key)
+//            print(conversion.value)
+//        }
+//        print("*                   *")
+//        print("*********************")
+//        
+//        return conversions
     }
 
     //MARK: Debugging methods
