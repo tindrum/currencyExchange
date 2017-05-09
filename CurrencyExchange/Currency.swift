@@ -247,10 +247,10 @@ class Currency: NSObject, NSCoding, Comparable {
     //MARK: YQL query
 
     func addExchangeRate(key: String, rate: ExchangeRate) {
-        print("adding...")
-        rate.logExchangeRate()
+//        print("adding...")
+//        rate.logExchangeRate()
         self.conversions[key] = rate
-        print("added one exchange rate to \(self.country)")
+//        print("added one exchange rate to \(self.country)")
     }
 
     func updateExchangeRates() {
@@ -323,7 +323,7 @@ class Currency: NSObject, NSCoding, Comparable {
 //                print(String(rate))
 //                print("*********************")
                 let exchangeRateObject: ExchangeRate = ExchangeRate(countryCode: code, rate: rate, lastUpdated: date)
-                exchangeRateObject.logExchangeRate()
+//                exchangeRateObject.logExchangeRate()
                 self.addExchangeRate(key: code, rate: exchangeRateObject)
                 conversions[code] = exchangeRateObject
                 
@@ -331,6 +331,13 @@ class Currency: NSObject, NSCoding, Comparable {
             
         }
 
+            // This code is outside the closure.
+            // It was doomed from the start.
+            // See README.md for my screed on closures.
+            //
+            // Commented-out code left as a warning to 
+            // the phony-tough and the crazy-brave.
+            
 //        print("*********************")
 //        print("*  ALL CONVERSIONS  *")
 //
@@ -342,6 +349,8 @@ class Currency: NSObject, NSCoding, Comparable {
 //        print("*********************")
 //        
 //        return conversions
+            // HAHAHA! returning the results after a closure!
+            // Oh, it hurts when I laugh so hard!
     }
 
     //MARK: Debugging methods

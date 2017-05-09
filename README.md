@@ -64,6 +64,19 @@ Christian Keur and Aaron Hillegass.
 ## Difficult programming topics
 Or, how I learned to stop worrying and love Swift and iOS.
 
+### Closures
+The YQL closure was dutifully gathering up all the exchange rates from the JSON, parsing out the good bits to Swift types, and creating an object for each conversion.
+
+The YQL closure was happily adding key/value pairs to a dictionary, so my controllers could easily look up a conversion rate.
+
+Outside the YQL closure, I was saving that dictionary into the Currency object, for it to use.
+
+Now I know better.
+
+Everything needs to be ready to go for when the closure is entered. If you need to _save something to somewhere_, you better provide a `method to save something somewhere` to the closure, for it to use. Whatever it's going to do, it's going to do inside the closure. There's nothing left when it exits. No dictionary of exchange rates. They go **POOF!**
+
+Don't try to out-think the closure. Don't make the empty dictionary beforehand, and have the closure add key/value pairs to it inside the closure. When you get out, **POOF!**, there ain't nothing there for you but an empty dictionary, like beforehand.
+
 ### Singleton
 [Great explanation of Singleton pattern on Swift](https://krakendev.io/blog/the-right-way-to-write-a-singleton)
 
