@@ -48,8 +48,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("applicationDidBecomeActive")
         print("Number of currency faves is \(worldCurrencies.numFaves)")
         for index in 0..<worldCurrencies.numberOfCurrencies() {
+            print("*************************************************************")
             let currency = worldCurrencies.currencyForIndex(index: index)
             print("\(currency.country) has \(currency.conversions.count) conversions in its dictionary")
+            for dict in currency.conversions {
+                print("....................................")
+
+                print("iso: \(dict.key)")
+                print("data: \(dict.value.countryCode) \(dict.value.rate) \(dict.value.lastUpdated)")
+            }
         }
         
         

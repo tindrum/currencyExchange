@@ -65,20 +65,27 @@ class ExchangeRate: NSObject, NSCoding {
     required convenience init?(coder aDecoder: NSCoder) {
 
         // The name is required. If we cannot decode a name string, the initializer should fail.
-        guard let countryCode = aDecoder.decodeObject(forKey: "countryCode") as? String else {
+        guard let countryCode = aDecoder.decodeObject(forKey: "countryCode") as? String? else {
             os_log("Unable to decode the ISO code for ExchangeRate object.", log: OSLog.default, type: .debug)
             return nil
         }
 
-        let rate = aDecoder.decodeObject(forKey: "rate") as? Double
+        guard let rate = aDecoder.decodeObject(forKey: "rate") as? Double? else {
+            os_log("Unable to decode the excahnge rate", log: OSLog.default, type: .debug)
+            return nil
+        }
         
-//        guard let date:Date = aDecoder.decodeObject(forKey: "lastUpdated") as? Date else {
-//            os_log("Unable to decode lastUpdated for ExchangeRate object.", log: OSLog.default, type: .debug)
-//            return nil
-//        }
-        let date = Date()
+        guard let date:Date? = aDecoder.decodeObject(forKey: "lastUpdated") as? Date? else {
+            os_log("Unable to decode lastUpdated for ExchangeRate object.", log: OSLog.default, type: .debug)
+            return nil
+        }
+
+        if countryCode != nil && rate != nil && date != nil {
+            self.init(countryCode: countryCode!, rate: rate!, lastUpdated: date!)
+        } else {
+            self.init(countryCode: "AAA/AAA", rate: 6.02, lastUpdated: Date())
+        }
         
-        self.init(countryCode: countryCode, rate: rate!, lastUpdated: date)
     }
     
     func logExchangeRate() {
