@@ -43,11 +43,13 @@ public enum ISOCode: String {
 class ExchangeRate: NSObject, NSCoding {
     public var countryCode: String
     public var rate: Double
-    public var lastUpdated: NSDate
+    public var lastUpdated: Date
+    
+
     
     //MARK: Types
     
-    init(countryCode: String, rate: Double, lastUpdated: NSDate) {
+    init(countryCode: String, rate: Double, lastUpdated: Date) {
         self.countryCode = countryCode
         self.rate = rate
         self.lastUpdated = lastUpdated
@@ -61,6 +63,7 @@ class ExchangeRate: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
+
         // The name is required. If we cannot decode a name string, the initializer should fail.
         guard let countryCode = aDecoder.decodeObject(forKey: "countryCode") as? String else {
             os_log("Unable to decode the ISO code for ExchangeRate object.", log: OSLog.default, type: .debug)
@@ -69,10 +72,12 @@ class ExchangeRate: NSObject, NSCoding {
 
         let rate = aDecoder.decodeObject(forKey: "rate") as? Double
         
-        guard let date:NSDate = aDecoder.decodeObject(forKey: "lastUpdated") as? NSDate else {
-                os_log("Unable to decode lastUpdated for ExchangeRate object.", log: OSLog.default, type: .debug)
-            return nil
-            }
+//        guard let date:Date = aDecoder.decodeObject(forKey: "lastUpdated") as? Date else {
+//            os_log("Unable to decode lastUpdated for ExchangeRate object.", log: OSLog.default, type: .debug)
+//            return nil
+//        }
+        let date = Date()
+        
         self.init(countryCode: countryCode, rate: rate!, lastUpdated: date)
     }
     
@@ -289,7 +294,7 @@ class Currency: NSObject, NSCoding, Comparable {
             // to extract data, cast to a new dictionary (or other data type)
             // repeat this process to pull out more specific information
             var code: String
-            var date: NSDate
+            var date: Date
             var rate: Double
             
             let queryDict = jsonDict["query"] as! [String: Any]
@@ -305,9 +310,9 @@ class Currency: NSObject, NSCoding, Comparable {
                 // or when it tries to force-unwrap it?
                 let dateString:String = oneCurrencyRecord["Date"] as! String
                 if dateString != "N/A"{
-                    date = dateFormatter.date(from: dateString)! as NSDate
+                    date = dateFormatter.date(from: dateString)! as Date
                 } else {
-                    date = NSDate()
+                    date = Date()
                 }
 //                print("*********************")
 //                print("the Name is:")
