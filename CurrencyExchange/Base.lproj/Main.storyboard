@@ -111,6 +111,17 @@
                     <view key="view" contentMode="scaleToFill" id="BZz-yB-vk4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJe-vN-n3k" userLabel="backToList">
+                                <rect key="frame" x="170" y="445" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="backToCurrencyListView:" destination="InZ-3O-ZlE" eventType="touchUpInside" id="swd-Jy-YKj"/>
+                                    <segue destination="wFl-AZ-s7H" kind="show" identifier="backToList" id="1aM-aq-ILX"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>

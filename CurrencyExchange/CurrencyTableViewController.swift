@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CurrencyTableViewController: UITableViewController {
+class CurrencyTableViewController: UITableViewController, ConvertCurrencyViewControllerDelegate {
     //MARK: Properties
     
 //    var currencies = [Currency]()
@@ -101,11 +101,21 @@ class CurrencyTableViewController: UITableViewController {
         if segue.identifier == "convertCurrency" {
             print("segue to Convert Currency")
             let convertCurrencyViewController = segue.destination as! ConvertCurrencyViewController
-//                convertCurrencyViewController.delegate = self
+                convertCurrencyViewController.delegate = self
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
     
-
+    //MARK: Protocol implementations
+    // ConvertCurrencyViewControllerDelegate
+    
+    func lastConversion(from: Currency, to: Currency)
+    {
+        // save the "to" currency in the "from" currency data
+        // so the user can easily see what they converted to last time
+        print("last connversion from: \(from.country) to: \(to.country)")
+        print("delegated to here from ConvertCurrencyViewController")
+        
+    }
 }
