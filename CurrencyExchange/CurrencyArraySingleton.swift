@@ -66,6 +66,12 @@ class CurrencyArraySingleton {
         return worldCurrencies[index]
     }
     
+    func updateFaveExchangeRates() {
+        for currency in worldCurrencies {
+            currency.updateExchangeRates()
+        }
+    }
+    
     
     //MARK: Persistence Methods
     

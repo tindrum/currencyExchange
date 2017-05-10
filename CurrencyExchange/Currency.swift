@@ -114,6 +114,11 @@ class Currency: NSObject, NSCoding, Comparable {
 
     // I think this is a dictionary with ISOCode as the key, and an ExchangeRate struct as the value
     var conversions = Dictionary<String, ExchangeRate>()
+    var numberOfConversions: Int {
+        get {
+            return conversions.count
+        }
+    }
     
     
     
@@ -267,14 +272,13 @@ class Currency: NSObject, NSCoding, Comparable {
 
     func updateExchangeRates() {
         self.exchangeRateLookup(fromCode: self.code)
-        print("The country \(self.country) claims to have \(self.conversions.count) exchange rates in it")
+//        print("The country \(self.country) claims to have \(self.conversions.count) exchange rates in it")
     }
 
     // Cargo-culted from:
     //  Created by David McLaren on 4/2/17.
     //  Copyright © 2017 David McLaren. All rights reserved.
         func exchangeRateLookup(fromCode: String)  {
-            var conversions: Dictionary<String, ExchangeRate> = [:]
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             
@@ -305,7 +309,7 @@ class Currency: NSObject, NSCoding, Comparable {
                 print("there are \(rates.count) results in 'rates'")
                 let r = rates["rate"] as! [Dictionary<String,Any>]
                 for i in r {
-                    print("Parsing YAHOO Finance data for \(fromCode)")
+//                    print("Parsing YAHOO Finance data for \(fromCode)")
                     let oneCurrencyRecord = i as! [String: Any]
                     code = oneCurrencyRecord["Name"]! as! String
                     let rateText:String = oneCurrencyRecord["Rate"]! as! String
@@ -319,7 +323,6 @@ class Currency: NSObject, NSCoding, Comparable {
                     rate = Double(rateText)!
                     let exchangeRateObject: ExchangeRate = ExchangeRate(countryCode: code, rate: rate, lastUpdated: date)
                     self.addExchangeRate(key: code, rate: exchangeRateObject)
-                    conversions[code] = exchangeRateObject
                     
                 }
         }

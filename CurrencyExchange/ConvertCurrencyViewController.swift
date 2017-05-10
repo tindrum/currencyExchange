@@ -18,6 +18,7 @@ class ConvertCurrencyViewController: UIViewController {
     @IBOutlet weak var fromCurrencyName: UILabel!
 
     @IBOutlet weak var flag: UIImageView!
+    @IBOutlet weak var numConversions: UILabel!
     
     @IBAction func backToCurrencyListView(_ sender: UIButton) {
         if sender.titleLabel?.text == "backToList" {
@@ -31,6 +32,7 @@ class ConvertCurrencyViewController: UIViewController {
 
         fromCurrencyName.text = fromCurrency?.country ?? "No Country"
         flag.image = fromCurrency?.flag
+        numConversions.text = String(fromCurrency?.numberOfConversions ?? 0)
         // Do any additional setup after loading the view.
     }
 

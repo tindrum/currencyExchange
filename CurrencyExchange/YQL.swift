@@ -36,6 +36,8 @@ class YQL {
         let task = URLSession.shared.dataTask(with: url!) {
             (data, response, error) in
             if error != nil {
+                print("*********************")
+                print("** YQL ERROR       **")
                 print(error!)
             } else {
                 do {

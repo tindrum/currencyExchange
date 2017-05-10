@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         print("world data is at: \(worldCurrencies.itemArchiveURL.path)")
-
+        worldCurrencies.updateFaveExchangeRates()
         return true
     }
 
@@ -45,19 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        print("applicationDidBecomeActive")
-        print("Number of currency faves is \(worldCurrencies.numFaves)")
-        for index in 0..<worldCurrencies.numberOfCurrencies() {
-            print("*************************************************************")
-            let currency = worldCurrencies.currencyForIndex(index: index)
-            print("\(currency.country) has \(currency.conversions.count) conversions in its dictionary")
-            for dict in currency.conversions {
-                print("....................................")
-
-                print("iso: \(dict.key)")
-                print("data: \(dict.value.countryCode) \(dict.value.rate) \(dict.value.lastUpdated)")
-            }
-        }
+        
+        worldCurrencies.updateFaveExchangeRates()
         
         
     }
