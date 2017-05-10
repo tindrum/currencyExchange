@@ -95,11 +95,12 @@ class CurrencyTableViewController: UITableViewController, ConvertCurrencyViewCon
     
     // MARK: - Navigation
     
+    // New version of Swift or iOS changed the method signature
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("tableView didSelectRowAtIndexPath")
+//        print("tableView didSelectRowAtIndexPath")
         selectedCurrency = worldCurrencies.currencyForIndex(index: indexPath.item)
-        print(String(indexPath.item))
-        print(selectedCurrency?.country ?? "No Country")
+//        print(String(indexPath.item))
+//        print(selectedCurrency?.country ?? "No Country")
         self.performSegue(withIdentifier: "convertCurrency", sender: indexPath);
 
     }
