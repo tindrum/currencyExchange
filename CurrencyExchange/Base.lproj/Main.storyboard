@@ -67,7 +67,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HXB-SE-0oF" id="yHU-Z4-fLP">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="35.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GRD-BS-jxJ">
@@ -86,6 +86,7 @@
                                 <connections>
                                     <outlet property="countryLabel" destination="GBD-CA-KiW" id="eoo-Ft-pUo"/>
                                     <outlet property="flagImageView" destination="GRD-BS-jxJ" id="JDo-5o-oum"/>
+                                    <segue destination="InZ-3O-ZlE" kind="show" identifier="convertCurrency" id="EcU-xX-Pqu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -97,7 +98,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XQb-Tg-hI8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1176.8" y="133.5832083958021"/>
+            <point key="canvasLocation" x="993" y="134"/>
+        </scene>
+        <!--Convert Currency View Controller-->
+        <scene sceneID="3zB-w8-Mxp">
+            <objects>
+                <viewController id="InZ-3O-ZlE" customClass="ConvertCurrencyViewController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bmm-Md-iBi"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xzm-02-6hu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BZz-yB-vk4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xgv-bs-kyB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1825" y="134"/>
         </scene>
     </scenes>
 </document>
