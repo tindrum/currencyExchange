@@ -99,6 +99,7 @@ class CurrencyTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "convertCurrency" {
+            print("segue to Convert Currency")
             let convertCurrencyViewController = segue.destination as! ConvertCurrencyViewController
 //                convertCurrencyViewController.delegate = self
         }
