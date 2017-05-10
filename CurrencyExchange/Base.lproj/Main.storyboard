@@ -58,7 +58,7 @@
         <scene sceneID="L93-qZ-V1C">
             <objects>
                 <tableViewController id="wFl-AZ-s7H" customClass="CurrencyTableViewController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="36" sectionHeaderHeight="28" sectionFooterHeight="28" id="X9m-Dw-uyi">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="36" sectionHeaderHeight="28" sectionFooterHeight="28" id="X9m-Dw-uyi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -86,7 +86,6 @@
                                 <connections>
                                     <outlet property="countryLabel" destination="GBD-CA-KiW" id="eoo-Ft-pUo"/>
                                     <outlet property="flagImageView" destination="GRD-BS-jxJ" id="JDo-5o-oum"/>
-                                    <segue destination="InZ-3O-ZlE" kind="show" identifier="convertCurrency" id="EcU-xX-Pqu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -95,6 +94,9 @@
                             <outlet property="delegate" destination="wFl-AZ-s7H" id="RSv-W2-foL"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="InZ-3O-ZlE" kind="show" identifier="convertCurrency" id="Tax-gf-KET"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XQb-Tg-hI8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

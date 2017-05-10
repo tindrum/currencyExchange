@@ -14,6 +14,7 @@ protocol ConvertCurrencyViewControllerDelegate {
 }
 
 class ConvertCurrencyViewController: UIViewController {
+    var fromCurrency: Currency?
     @IBAction func backToCurrencyListView(_ sender: UIButton) {
         if sender.titleLabel?.text == "backToList" {
             

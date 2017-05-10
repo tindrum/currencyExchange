@@ -10,9 +10,9 @@ import UIKit
 
 class CurrencyTableViewController: UITableViewController, ConvertCurrencyViewControllerDelegate {
     //MARK: Properties
-    
 //    var currencies = [Currency]()
     var worldCurrencies = CurrencyArraySingleton.sharedInstance
+    var selectedCurrency:Currency?
     
     
     override func viewDidLoad() {
@@ -94,7 +94,17 @@ class CurrencyTableViewController: UITableViewController, ConvertCurrencyViewCon
 
     
     // MARK: - Navigation
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("tableView didSelectRowAtIndexPath")
+        selectedCurrency = worldCurrencies.currencyForIndex(index: indexPath.item)
+        print(String(indexPath.item))
+        print(selectedCurrency?.country ?? "No Country")
+        self.performSegue(withIdentifier: "convertCurrency", sender: indexPath);
 
+    }
+
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -102,6 +112,7 @@ class CurrencyTableViewController: UITableViewController, ConvertCurrencyViewCon
             print("segue to Convert Currency")
             let convertCurrencyViewController = segue.destination as! ConvertCurrencyViewController
                 convertCurrencyViewController.delegate = self
+                convertCurrencyViewController.fromCurrency = nil
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
