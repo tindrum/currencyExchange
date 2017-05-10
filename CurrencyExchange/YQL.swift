@@ -36,6 +36,9 @@ class YQL {
         let task = URLSession.shared.dataTask(with: url!) {
             (data, response, error) in
             if error != nil {
+                // TODO: Need a way to "see" this error sooner.
+                // If internet is down, we can just not update exchange rates
+                // if we know this is happening.
                 print("*********************")
                 print("** YQL ERROR       **")
                 print(error!)

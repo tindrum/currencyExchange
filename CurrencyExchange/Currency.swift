@@ -295,7 +295,7 @@ class Currency: NSObject, NSCoding, Comparable {
             var queryString = "select * from yahoo.finance.xchange where pair in ("
             queryString +=  truncated
             queryString += ")"
-            print(queryString)
+//            print(queryString)
             // Network session is asyncronous so use a closure to act upon data once data is returned
             myYQL.query(queryString) { jsonDict in
                 var code: String
@@ -304,9 +304,9 @@ class Currency: NSObject, NSCoding, Comparable {
                 
                 let queryDict = jsonDict["query"] as! [String: Any]
                 let rates = queryDict["results"] as! [String: Any]
-                        print("*********************")
+//                        print("*********************")
 
-                print("there are \(rates.count) results in 'rates'")
+//                print("there are \(rates.count) results in 'rates'")
                 let r = rates["rate"] as! [Dictionary<String,Any>]
                 for i in r {
 //                    print("Parsing YAHOO Finance data for \(fromCode)")

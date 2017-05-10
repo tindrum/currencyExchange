@@ -35,16 +35,16 @@ class CurrencyArraySingleton {
             print("CREATING DEFAULT CURRENCIES")
             loadCurrencies()
         }
-        print("faves are:")
-        let faves = worldCurrencies.filter{ $0.fave }
-        for fave in faves {
-            print("updating faves for:")
-            print(fave.country)
-            fave.updateExchangeRates()
-            print(fave.country)
-            print("count of conversions:")
-            print(fave.conversions.count)
-        }
+//        print("faves are:")
+//        let faves = worldCurrencies.filter{ $0.fave }
+//        for fave in faves {
+//            print("updating faves for:")
+//            print(fave.country)
+//            fave.updateExchangeRates()
+//            print(fave.country)
+//            print("count of conversions:")
+//            print(fave.conversions.count)
+//        }
     }
     
     //MARK: Public Methods
@@ -67,9 +67,14 @@ class CurrencyArraySingleton {
     }
     
     func updateFaveExchangeRates() {
-        for currency in worldCurrencies {
+        let faves = worldCurrencies.filter{ $0.fave }
+
+        print("** requesting update of exchange rates")
+        for currency in faves {
+            print(" *\(currency.code)")
             currency.updateExchangeRates()
         }
+        print("** done requesting exchange rate updates")
     }
     
     
