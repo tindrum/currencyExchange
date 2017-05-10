@@ -15,6 +15,10 @@ protocol ConvertCurrencyViewControllerDelegate {
 
 class ConvertCurrencyViewController: UIViewController {
     var fromCurrency: Currency?
+    @IBOutlet weak var fromCurrencyName: UILabel!
+
+    @IBOutlet weak var flag: UIImageView!
+    
     @IBAction func backToCurrencyListView(_ sender: UIButton) {
         if sender.titleLabel?.text == "backToList" {
             
@@ -25,6 +29,8 @@ class ConvertCurrencyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        fromCurrencyName.text = fromCurrency?.country ?? "No Country"
+        flag.image = fromCurrency?.flag
         // Do any additional setup after loading the view.
     }
 

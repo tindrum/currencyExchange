@@ -112,7 +112,7 @@ class CurrencyTableViewController: UITableViewController, ConvertCurrencyViewCon
             print("segue to Convert Currency")
             let convertCurrencyViewController = segue.destination as! ConvertCurrencyViewController
                 convertCurrencyViewController.delegate = self
-                convertCurrencyViewController.fromCurrency = nil
+                convertCurrencyViewController.fromCurrency = selectedCurrency
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
