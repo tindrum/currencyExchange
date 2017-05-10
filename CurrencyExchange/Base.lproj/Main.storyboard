@@ -141,6 +141,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0yi-Me-V8D">
+                                <rect key="frame" x="16" y="98" width="343" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -148,6 +152,7 @@
                         <outlet property="flag" destination="C8I-9B-9iq" id="cF0-SR-tQi"/>
                         <outlet property="fromCurrencyName" destination="TqK-mc-jWJ" id="Ik9-TB-cuO"/>
                         <outlet property="numConversions" destination="AAs-Ar-Ppc" id="PHu-o3-rwt"/>
+                        <outlet property="toCurrencyPicker" destination="0yi-Me-V8D" id="gRy-NB-gnh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xgv-bs-kyB" userLabel="First Responder" sceneMemberID="firstResponder"/>

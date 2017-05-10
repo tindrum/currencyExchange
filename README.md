@@ -99,6 +99,9 @@ to google how to override Transport Security](http://stackoverflow.com/questions
 
 This seems like a good security feature. As a developer, I have to consciously poke holes out to the internet in my app. I was going to use `*.yahoo.com` as my url string, but (besides not working) I thought, why allow access to a whole range when I only need a specific RESTful endpoint?
 
+## Picker
+
+[Tutorial on UIPickerView from December 2016, so recent enough to be helpful](https://makeapppie.com/2016/12/12/data-entry-with-uipickerview/)
 
 ## Using enums - try something simpler first
 [Making a pseudo-property for enum ISOCode](http://stackoverflow.com/questions/24007461/how-to-enumerate-an-enum-with-string-type/24137319#24137319)
