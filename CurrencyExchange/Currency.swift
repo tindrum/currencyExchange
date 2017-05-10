@@ -270,99 +270,60 @@ class Currency: NSObject, NSCoding, Comparable {
         print("The country \(self.country) claims to have \(self.conversions.count) exchange rates in it")
     }
 
-//    func exchangeRateLookup(fromCode: String, forCurrencyObject: Currency ) -> Dictionary<String, ExchangeRate> {
+    // Cargo-culted from:
+    //  Created by David McLaren on 4/2/17.
+    //  Copyright © 2017 David McLaren. All rights reserved.
         func exchangeRateLookup(fromCode: String)  {
-        // Cargo-culted from:
-        //  Created by David McLaren on 4/2/17.
-        //  Copyright © 2017 David McLaren. All rights reserved.
-        var conversions: Dictionary<String, ExchangeRate> = [:]
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        
-        let myYQL = YQL()
-        let allValues = ["USD", "AUD", "BRL", "CAD", "EGP", "INR", "ILS", "JPY", "MXN", "PEN", "SAR", "SGD", "ZAR", "KRW", "THB", "CNY", "AED", "GBP", "EUR"]
-        var partialQueryString:String = "" // = "\"USDGBP\", \"USDCAD\", \"USDEUR\", \"USDJPY\", \"USDMXN\""
-        for val in allValues.enumerated() {
-            partialQueryString += "\"" + fromCode + val.element + "\", "
-        }
-
-//        let startIndex = partialQueryString.index(partialQueryString.startIndex)
-        let endIndex = partialQueryString.index(partialQueryString.endIndex, offsetBy: -2)
-        let truncated = partialQueryString.substring(to: endIndex)
-
-        var queryString = "select * from yahoo.finance.xchange where pair in ("
-        queryString +=  truncated
-        queryString += ")"
-        print(queryString)
-        // Network session is asyncronous so use a closure to act upon data once data is returned
-        myYQL.query(queryString) { jsonDict in
-            // With the resulting jsonDict, pull values out
-            // jsonDict["query"] results in an Any? object
-            // to extract data, cast to a new dictionary (or other data type)
-            // repeat this process to pull out more specific information
-            var code: String
-            var date: Date
-            var rate: Double
+            var conversions: Dictionary<String, ExchangeRate> = [:]
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
             
-            let queryDict = jsonDict["query"] as! [String: Any]
-            let rates = queryDict["results"] as! [String: Any]
-            let r = rates["rate"] as! [Dictionary<String,Any>]
-            for i in r {
-                print("Parsing YAHOO Finance data for \(fromCode)")
-                let oneCurrencyRecord = i as! [String: Any]
-                code = oneCurrencyRecord["Name"]! as! String
-                let rateText:String = oneCurrencyRecord["Rate"]! as! String
-                
-                // does it crash when trying to access the key "Date",
-                // or when it tries to force-unwrap it?
-                let dateString:String = oneCurrencyRecord["Date"] as! String
-                if dateString != "N/A"{
-                    date = dateFormatter.date(from: dateString)! as Date
-                } else {
-                    date = Date()
-                }
-//                print("*********************")
-//                print("the Name is:")
-//                print(i["Name"]!)
-//                print("the date is:")
-//                print(i["Date"]!)
-//                print("the formatted date is:")
-//                print(String(describing: date))
-//                print("the rateText is:")
-//                print(i["Rate"]!)
-//                print("the rate is:")
-                rate = Double(rateText)!
-//                print(String(rate))
-//                print("*********************")
-                let exchangeRateObject: ExchangeRate = ExchangeRate(countryCode: code, rate: rate, lastUpdated: date)
-//                exchangeRateObject.logExchangeRate()
-                self.addExchangeRate(key: code, rate: exchangeRateObject)
-                conversions[code] = exchangeRateObject
-                
+            let myYQL = YQL()
+            let allValues = ["USD", "AUD", "BRL", "CAD", "EGP", "INR", "ILS", "JPY", "MXN", "PEN", "SAR", "SGD", "ZAR", "KRW", "THB", "CNY", "AED", "GBP", "EUR"]
+            var partialQueryString:String = "" // = "\"USDGBP\", \"USDCAD\", \"USDEUR\", \"USDJPY\", \"USDMXN\""
+            for val in allValues.enumerated() {
+                partialQueryString += "\"" + fromCode + val.element + "\", "
             }
-            
+
+            let endIndex = partialQueryString.index(partialQueryString.endIndex, offsetBy: -2)
+            let truncated = partialQueryString.substring(to: endIndex)
+
+            var queryString = "select * from yahoo.finance.xchange where pair in ("
+            queryString +=  truncated
+            queryString += ")"
+            print(queryString)
+            // Network session is asyncronous so use a closure to act upon data once data is returned
+            myYQL.query(queryString) { jsonDict in
+                var code: String
+                var date: Date
+                var rate: Double
+                
+                let queryDict = jsonDict["query"] as! [String: Any]
+                let rates = queryDict["results"] as! [String: Any]
+                        print("*********************")
+
+                print("there are \(rates.count) results in 'rates'")
+                let r = rates["rate"] as! [Dictionary<String,Any>]
+                for i in r {
+                    print("Parsing YAHOO Finance data for \(fromCode)")
+                    let oneCurrencyRecord = i as! [String: Any]
+                    code = oneCurrencyRecord["Name"]! as! String
+                    let rateText:String = oneCurrencyRecord["Rate"]! as! String
+                    
+                    let dateString:String = oneCurrencyRecord["Date"] as! String
+                    if dateString != "N/A"{
+                        date = dateFormatter.date(from: dateString)! as Date
+                    } else {
+                        date = Date()
+                    }
+                    rate = Double(rateText)!
+                    let exchangeRateObject: ExchangeRate = ExchangeRate(countryCode: code, rate: rate, lastUpdated: date)
+                    self.addExchangeRate(key: code, rate: exchangeRateObject)
+                    conversions[code] = exchangeRateObject
+                    
+                }
         }
 
-            // This code is outside the closure.
-            // It was doomed from the start.
-            // See README.md for my screed on closures.
-            //
-            // Commented-out code left as a warning to 
-            // the phony-tough and the crazy-brave.
-            
-//        print("*********************")
-//        print("*  ALL CONVERSIONS  *")
-//
-//        for conversion in conversions {
-//            print(conversion.key)
-//            print(conversion.value)
-//        }
-//        print("*                   *")
-//        print("*********************")
-//        
-//        return conversions
-            // HAHAHA! returning the results after a closure!
-            // Oh, it hurts when I laugh so hard!
     }
 
     //MARK: Debugging methods
