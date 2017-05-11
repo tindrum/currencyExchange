@@ -49,8 +49,10 @@ class ExchangeRate: NSObject, NSCoding {
     
     //MARK: Types
     
-    init(countryCode: String, rate: Double, lastUpdated: Date) {
-        self.countryCode = countryCode
+    init(shortCode: String, rate: Double, lastUpdated: Date) {
+        print(shortCode)
+        print(shortCode.characters.count)
+        self.countryCode = shortCode
         self.rate = rate
         self.lastUpdated = lastUpdated
     }
@@ -81,9 +83,9 @@ class ExchangeRate: NSObject, NSCoding {
         }
 
         if countryCode != nil && rate != nil && date != nil {
-            self.init(countryCode: countryCode!, rate: rate!, lastUpdated: date!)
+            self.init(shortCode: countryCode!, rate: rate!, lastUpdated: date!)
         } else {
-            self.init(countryCode: "AAA/AAA", rate: 6.02, lastUpdated: Date())
+            self.init(shortCode: "AAA/AAA", rate: 6.02, lastUpdated: Date())
         }
         
     }
@@ -311,7 +313,10 @@ class Currency: NSObject, NSCoding, Comparable {
                 for i in r {
 //                    print("Parsing YAHOO Finance data for \(fromCode)")
                     let oneCurrencyRecord = i as! [String: Any]
+                    
                     code = oneCurrencyRecord["Name"]! as! String
+                    let shortCode = exchangeRateCountryCodeToCode(longCode: code)
+                    
                     let rateText:String = oneCurrencyRecord["Rate"]! as! String
                     
                     let dateString:String = oneCurrencyRecord["Date"] as! String
@@ -321,7 +326,7 @@ class Currency: NSObject, NSCoding, Comparable {
                         date = Date()
                     }
                     rate = Double(rateText)!
-                    let exchangeRateObject: ExchangeRate = ExchangeRate(countryCode: code, rate: rate, lastUpdated: date)
+                    let exchangeRateObject: ExchangeRate = ExchangeRate(shortCode: shortCode, rate: rate, lastUpdated: date)
                     self.addExchangeRate(key: code, rate: exchangeRateObject)
                     
                 }
@@ -351,7 +356,7 @@ func exchangeRateCountryCodeToCode( longCode: String) -> String {
     }
     else {
         print("Not found")
-        fatalError("country codes need a refactor")
+        return "XXX"
     }
     
 }
@@ -405,7 +410,8 @@ func codeToCountryName(code: String) -> String {
     // Not one of my chosen currencies.
     default:
         print(code)
-        fatalError("No country for this ISO Code")
+        return "Disneyland"
+//        fatalError("No country for this ISO Code")
     }
 }
 

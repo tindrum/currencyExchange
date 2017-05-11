@@ -74,11 +74,22 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     
     //MARK: Conversion
     func stringsForConversions() -> [String] {
+        // get the codes for the favorites
+        let faves:[String] = worldCurrencies.favoritesCodes()
+        print("these are the codes of the faves")
+        for fave in faves {
+            
+            print(fave)
+        }
         var countries:[String] = []
         for rate in (fromCurrency?.conversions)! {
-            let countryCode = rate.value.countryCode
-            let countryName = exchangeRateCountryCodeToCountryName(code: countryCode)
-            countries.append(countryName)
+//            let longCode = rate.value.countryCode
+//            let shortCode = exchangeRateCountryCodeToCode(longCode: longCode)
+            let shortCode = rate.value.countryCode
+            if faves.contains(shortCode) {
+                let countryName = codeToCountryName(code: shortCode)
+                countries.append(countryName)
+            }
         }
         return countries
     }

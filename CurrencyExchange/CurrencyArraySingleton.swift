@@ -77,6 +77,17 @@ class CurrencyArraySingleton {
         print("** done requesting exchange rate updates")
     }
     
+    func favoritesCodes() -> [String] {
+        var favesArray:[String] = []
+        for currency in worldCurrencies {
+            if currency.fave {
+                favesArray.append(currency.code)
+            }
+        }
+        return favesArray
+    }
+    
+
     
     //MARK: Persistence Methods
     
