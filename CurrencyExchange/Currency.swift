@@ -337,6 +337,30 @@ class Currency: NSObject, NSCoding, Comparable {
 
 //MARK: Helpers
 
+func exchangeRateCountryCodeToCode( longCode: String) -> String {
+    // TODO: Refactor parsing of json in YQL and Currency object.
+    // I don't dare mess with my fragile YQL parsing at the moment
+    // The way it is now, the country code is "USD/GBP",
+    // but I really just want "GBP" part.
+    
+    let needle: Character = "/"
+    if let idx = longCode.characters.index(of: needle) {
+        var code = longCode.substring(from: idx)
+        code.remove(at: code.startIndex)
+        return code
+    }
+    else {
+        print("Not found")
+        fatalError("country codes need a refactor")
+    }
+    
+}
+
+func exchangeRateCountryCodeToCountryName ( code: String ) -> String {
+    let shortCode = exchangeRateCountryCodeToCode(longCode: code)
+    return codeToCountryName(code: shortCode)
+}
+
 func codeToCountryName(code: String) -> String {
     switch code {
     case "USD":
@@ -380,6 +404,7 @@ func codeToCountryName(code: String) -> String {
         
     // Not one of my chosen currencies.
     default:
+        print(code)
         fatalError("No country for this ISO Code")
     }
 }

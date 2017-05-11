@@ -95,9 +95,23 @@ I did not get to this yet. I was going to have a 'Welcome' screen that would loa
 ### Short form of a closure to sort Array elements
 [For tableView: numberOfRowsInSection, finding the count of just the faves](http://stackoverflow.com/questions/25398608/count-number-of-items-in-an-array-with-a-specific-property-value)
 
-### String function to chop off chars from the endpoint
+### String function to chop off chars
 This seems more complicated than it needs to be.
 [Building the queryString in Currency.swift requires chopping off a comma and a space](http://stackoverflow.com/questions/24122288/remove-last-character-from-string-swift-language)
+
+This example is good, because it makes it clear that he's looking for a needle in a haystack
+[Finding the position of a char within a string](http://stackoverflow.com/questions/24029163/finding-index-of-character-in-swift-string)
+
+Apparently, the adoption of Unicode, with the potential for multi-byte characters in a String, has made string operations completely befuddling.
+[Here's how to remove the first character of a String](http://stackoverflow.com/questions/28445917/what-is-the-most-succinct-way-to-remove-the-first-character-from-a-string-in-swi)
+
+Also, the return type of this lines
+```
+code.remove(at: code.startIndex)
+```
+is a `Character`, but the action mutates the string `code` to be one shorter.
+
+Everything you were ever taught about strings is a lie. 
 
 ## Important Xcode/iOS Development Gotchas
 ### Accessing URLs in an app
