@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Welcom-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="Welcom" customClass="ViewController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -49,15 +49,16 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="bAC-tR-eb1"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="141.59999999999999" y="138.98050974512745"/>
+            <point key="canvasLocation" x="1202" y="876"/>
         </scene>
-        <!--Item-->
+        <!--Select Conversion-->
         <scene sceneID="L93-qZ-V1C">
             <objects>
-                <tableViewController id="wFl-AZ-s7H" customClass="CurrencyTableViewController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="wFl-AZ-s7H" userLabel="Select Conversion" customClass="CurrencyTableViewController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="36" sectionHeaderHeight="28" sectionFooterHeight="28" id="X9m-Dw-uyi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -104,10 +105,39 @@
             </objects>
             <point key="canvasLocation" x="1932" y="133.5832083958021"/>
         </scene>
-        <!--Convert Currency View Controller-->
+        <!--Currency Favorites-->
+        <scene sceneID="how-Mh-iuo">
+            <objects>
+                <tableViewController id="yo2-cX-p3k" userLabel="Currency Favorites" customClass="CurrencyFavoritesTableViewController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="xML-UX-v1B">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="DDe-5P-SCf">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DDe-5P-SCf" id="XnJ-R6-3Vf">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yo2-cX-p3k" id="ONH-b8-gBQ"/>
+                            <outlet property="delegate" destination="yo2-cX-p3k" id="VMT-YZ-UfF"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="dup-Rt-7OC"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H2w-Sg-w80" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2026" y="876"/>
+        </scene>
+        <!--Convert Currency-->
         <scene sceneID="3zB-w8-Mxp">
             <objects>
-                <viewController id="InZ-3O-ZlE" customClass="ConvertCurrencyViewController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="InZ-3O-ZlE" userLabel="Convert Currency" customClass="ConvertCurrencyViewController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bmm-Md-iBi"/>
                         <viewControllerLayoutGuide type="bottom" id="Xzm-02-6hu"/>
@@ -209,19 +239,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xgv-bs-kyB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2764" y="133.5832083958021"/>
+            <point key="canvasLocation" x="2708" y="-113"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="iYS-7R-Iec">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="RKK-35-ucw" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="RKK-35-ucw" customClass="TabBarController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Ja5-HB-NlY">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Cee-HZ-W2s"/>
                         <segue destination="wFl-AZ-s7H" kind="relationship" relationship="viewControllers" id="aL7-Sw-YiM"/>
+                        <segue destination="yo2-cX-p3k" kind="relationship" relationship="viewControllers" id="blq-pj-tkC"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Yw-nI-0t4" userLabel="First Responder" sceneMemberID="firstResponder"/>
