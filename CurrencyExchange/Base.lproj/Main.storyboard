@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wFl-AZ-s7H">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RKK-35-ucw">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -54,7 +54,7 @@
             </objects>
             <point key="canvasLocation" x="141.59999999999999" y="138.98050974512745"/>
         </scene>
-        <!--Currency Table View Controller-->
+        <!--Item-->
         <scene sceneID="L93-qZ-V1C">
             <objects>
                 <tableViewController id="wFl-AZ-s7H" customClass="CurrencyTableViewController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
@@ -67,7 +67,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HXB-SE-0oF" id="yHU-Z4-fLP">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="35.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GRD-BS-jxJ">
@@ -94,13 +94,15 @@
                             <outlet property="delegate" destination="wFl-AZ-s7H" id="RSv-W2-foL"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="HmS-Bf-4BU"/>
                     <connections>
+                        <outlet property="view" destination="X9m-Dw-uyi" id="aVk-OT-4oU"/>
                         <segue destination="InZ-3O-ZlE" kind="show" identifier="convertCurrency" id="Tax-gf-KET"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XQb-Tg-hI8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="993" y="134"/>
+            <point key="canvasLocation" x="1932" y="133.5832083958021"/>
         </scene>
         <!--Convert Currency View Controller-->
         <scene sceneID="3zB-w8-Mxp">
@@ -120,7 +122,7 @@
                                 <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="backToCurrencyListView:" destination="InZ-3O-ZlE" eventType="touchUpInside" id="swd-Jy-YKj"/>
-                                    <segue destination="wFl-AZ-s7H" kind="show" identifier="backToList" id="1aM-aq-ILX"/>
+                                    <segue destination="RKK-35-ucw" kind="show" identifier="backToList" id="1aM-aq-ILX"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqK-mc-jWJ">
@@ -207,7 +209,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xgv-bs-kyB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1824.8" y="133.5832083958021"/>
+            <point key="canvasLocation" x="2764" y="133.5832083958021"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="iYS-7R-Iec">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="RKK-35-ucw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="Ja5-HB-NlY">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="wFl-AZ-s7H" kind="relationship" relationship="viewControllers" id="aL7-Sw-YiM"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Yw-nI-0t4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="992.79999999999995" y="133.5832083958021"/>
         </scene>
     </scenes>
     <resources>
