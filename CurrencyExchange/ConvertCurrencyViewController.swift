@@ -33,6 +33,7 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     let timeDigit = ["0","1","2","3","4","5"]
     let timeSeperator = [":"]
     let decimalSeperator = ["."]
+    @IBOutlet weak var pickerSelected: UILabel!
 
     var delegate:ConvertCurrencyViewControllerDelegate! = nil
     
@@ -45,7 +46,7 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         numConversions.text = String(fromCurrency?.numberOfConversions ?? 0)
         toCurrencyPicker.dataSource = self
         toCurrencyPicker.delegate = self
-        components = [["A", "B", "C"], ["a", "b", "c"]]
+        components = [["1", "2", "3"], ["4", "5", "6"]]
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,6 +103,18 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
             components += [numberPickerComponent(from:char)]
         }
         return components
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        resultString = ""
+        for index in 0..<components.count{
+            let digit = components[index][pickerView.selectedRow(inComponent: index)]
+//                {
+//                    resultString += " " //add space if more than one character
+//                }
+            resultString += digit
+        }
+        pickerSelected.text = resultString
     }
 
 }

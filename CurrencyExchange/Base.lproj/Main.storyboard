@@ -67,7 +67,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HXB-SE-0oF" id="yHU-Z4-fLP">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="35.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GRD-BS-jxJ">
@@ -145,6 +145,13 @@
                                 <rect key="frame" x="16" y="98" width="343" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qd8-iB-iS0">
+                                <rect key="frame" x="16" y="345" width="250" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -152,6 +159,7 @@
                         <outlet property="flag" destination="C8I-9B-9iq" id="cF0-SR-tQi"/>
                         <outlet property="fromCurrencyName" destination="TqK-mc-jWJ" id="Ik9-TB-cuO"/>
                         <outlet property="numConversions" destination="AAs-Ar-Ppc" id="PHu-o3-rwt"/>
+                        <outlet property="pickerSelected" destination="qd8-iB-iS0" id="wNJ-QI-Cdw"/>
                         <outlet property="toCurrencyPicker" destination="0yi-Me-V8D" id="gRy-NB-gnh"/>
                     </connections>
                 </viewController>
