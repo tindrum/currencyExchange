@@ -50,8 +50,8 @@ class ExchangeRate: NSObject, NSCoding {
     //MARK: Types
     
     init(shortCode: String, rate: Double, lastUpdated: Date) {
-        print(shortCode)
-        print(shortCode.characters.count)
+//        print(shortCode)
+//        print(shortCode.characters.count)
         self.countryCode = shortCode
         self.rate = rate
         self.lastUpdated = lastUpdated
@@ -125,6 +125,18 @@ class Currency: NSObject, NSCoding, Comparable {
     
     
     //MARK: Types
+    
+    //MARK: Find a country
+    // TODO: Refactor so that Currency is a key/value dictionary
+    // For now, brute-force it.
+    // The brute force is happening in CurrencyArraySingleton
+    static func isCountryForCode(object: Currency, code: String) -> Bool {
+        if object.code == code {
+            return true
+        } else {
+            return false
+        }
+    }
     
 //    struct PropertyKey {
 //        static let code = "code"
@@ -297,7 +309,7 @@ class Currency: NSObject, NSCoding, Comparable {
             var queryString = "select * from yahoo.finance.xchange where pair in ("
             queryString +=  truncated
             queryString += ")"
-            print(queryString)
+//            print(queryString)
             // Network session is asyncronous so use a closure to act upon data once data is returned
             myYQL.query(queryString) { jsonDict in
                 var code: String
@@ -326,6 +338,7 @@ class Currency: NSObject, NSCoding, Comparable {
                         date = Date()
                     }
                     rate = Double(rateText)!
+                    print("rate YQL lookup is \(rate)")
                     let exchangeRateObject: ExchangeRate = ExchangeRate(shortCode: shortCode, rate: rate, lastUpdated: date)
                     self.addExchangeRate(key: code, rate: exchangeRateObject)
                     

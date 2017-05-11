@@ -26,16 +26,21 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     @IBOutlet weak var flag: UIImageView!
     @IBOutlet weak var numConversions: UILabel!
     
+    // Currencies to convert TO
+    @IBOutlet weak var toCountryName: UILabel!
+    @IBOutlet weak var toExchangeRate: UILabel!
+    @IBOutlet weak var toCountryCode: UILabel!
+    
+    @IBOutlet weak var toFlag: UIImageView!
+    
     // Picker view data
     @IBOutlet weak var toCurrencyPicker: UIPickerView!
     var components = [[String]]()
+    var codes = [String]()
+    var rates = [Double?]()
+    var flags = [UIImage?]()
+    
     var resultString = ""
-    // TODO: remove Example code
-    let decimalDigit = ["0","1","2","3","4","5","6","7","8","9"]
-    let timeDigit = ["0","1","2","3","4","5"]
-    let timeSeperator = [":"]
-    let decimalSeperator = ["."]
-    @IBOutlet weak var pickerSelected: UILabel!
 
     var delegate:ConvertCurrencyViewControllerDelegate! = nil
     
@@ -48,7 +53,9 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         numConversions.text = String(fromCurrency?.numberOfConversions ?? 0)
         toCurrencyPicker.dataSource = self
         toCurrencyPicker.delegate = self
-        components = [stringsForConversions()]
+//        components = [stringsForConversions()]
+        components.append([String]())
+        prepareDataForPicker(componentsArray: &components, codes: &codes, rates: &rates, flags: &flags)
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,6 +80,26 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     //MARK: Conversion
+    func prepareDataForPicker(componentsArray: inout [[String]], codes: inout [String], rates: inout [Double?], flags: inout [UIImage?]) {
+        let thisCountryCode = fromCurrency?.code
+        let faves:[String] = worldCurrencies.favoritesCodes(notIncluding: thisCountryCode!)
+        for rate in (fromCurrency?.conversions)! {
+            let shortCode = rate.value.countryCode
+            if faves.contains(shortCode) && shortCode != thisCountryCode {
+                codes.append(shortCode)
+                let countryName = codeToCountryName(code: shortCode)
+                componentsArray[0].append(countryName)
+                let currencyObject = worldCurrencies.currencyObjectForCode(code: shortCode)
+                flags.append(currencyObject?.flag)
+                rates.append(fromCurrency?.conversions[shortCode]?.rate)
+                
+            }
+        }
+
+        
+    }
+
+    
     func stringsForConversions() -> [String] {
         // get the codes for the favorites
         let thisCountryCode = fromCurrency?.code
@@ -107,12 +134,28 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
 
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        var countryName = ""
+        var indexOfPicked: Int
         for index in 0..<components.count{
             // component.count better be 1
-            countryName = components[index][pickerView.selectedRow(inComponent: index)]
+            indexOfPicked = pickerView.selectedRow(inComponent: index)
+            print("Index of picker selection is \(indexOfPicked)")
+            // TODO: save country code, exchange rate, whatever at same time country name is being retrieved.
+            //       store this all in parallel arrays, so we can use them when user picks from picker.
+            toCountryName.text = components[0][indexOfPicked]
+            toFlag.image = flags[indexOfPicked]
+            if ((rates[indexOfPicked]) != nil) {
+                toExchangeRate.text = String(rates[indexOfPicked]!)
+            } else {
+                toExchangeRate.text = "???"
+            }
+            
+            // TODO: Number Formatter on label field
+            toCountryCode.text = codes[indexOfPicked]
         }
-        pickerSelected.text = countryName
     }
 
+
 }
+
+
+

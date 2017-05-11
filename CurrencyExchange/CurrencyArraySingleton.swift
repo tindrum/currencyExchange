@@ -48,6 +48,25 @@ class CurrencyArraySingleton {
     }
     
     //MARK: Public Methods
+    
+    func currencyObjectForCode(code: String) -> Currency? {
+        var currencyObject:Currency? = nil
+        for obj in worldCurrencies {
+            if Currency.isCountryForCode(object: obj, code: code) {
+                currencyObject = obj
+            }
+        }
+        return currencyObject
+    }
+
+    
+    func codeToFlag(code: String) -> UIImage? {
+        let currencyObject:Currency? = currencyObjectForCode(code: code)
+        return currencyObject?.flag
+    }
+    
+
+    
     func numberOfFavorites() -> Int {
         // find the count of faves, since that's all this tableView displays
         let count = worldCurrencies.filter{ $0.fave }.count
@@ -117,7 +136,7 @@ class CurrencyArraySingleton {
         
         if (flags.count == countries.count) {
             for count in 0..<flags.count {
-                print("creating \(countries[count]) with flag \(flags[count])")
+//                print("creating \(countries[count]) with flag \(flags[count])")
                 worldCurrencies.append(Currency(code: countries[count], flag: flags[count], position: count)!)
             }
             // Make a couple of them favorites
@@ -127,17 +146,17 @@ class CurrencyArraySingleton {
             }
             
             worldCurrencies.sort()
-            print("list all currencies, after loadCurrencies() called")
-            for c in worldCurrencies {
-                print(c.country)
-                print(c.flagFile)
-                if c.fave {
-                    print("fave")
-                } else {
-                    print("not fave")
-                }
-                print(String(c.favoritePosition))
-            }
+//            print("list all currencies, after loadCurrencies() called")
+//            for c in worldCurrencies {
+//                print(c.country)
+//                print(c.flagFile)
+//                if c.fave {
+//                    print("fave")
+//                } else {
+//                    print("not fave")
+//                }
+//                print(String(c.favoritePosition))
+//            }
             
         } else {
             fatalError("Number of flags does not match number of country codes.")
