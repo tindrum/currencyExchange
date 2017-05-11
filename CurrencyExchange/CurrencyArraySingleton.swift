@@ -12,7 +12,7 @@ import UIKit
 class CurrencyArraySingleton {
     static let sharedInstance = CurrencyArraySingleton()
     var worldCurrencies = [Currency]()
-    let numFaves: Int = 15
+    let numFaves: Int = 4
 
     let itemArchiveURL: URL = { // Closure with signature of () -> URL
         let documentsDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)

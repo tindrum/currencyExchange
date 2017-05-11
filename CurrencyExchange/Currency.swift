@@ -297,7 +297,7 @@ class Currency: NSObject, NSCoding, Comparable {
             var queryString = "select * from yahoo.finance.xchange where pair in ("
             queryString +=  truncated
             queryString += ")"
-//            print(queryString)
+            print(queryString)
             // Network session is asyncronous so use a closure to act upon data once data is returned
             myYQL.query(queryString) { jsonDict in
                 var code: String
