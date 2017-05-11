@@ -85,7 +85,7 @@ class ExchangeRate: NSObject, NSCoding {
         if countryCode != nil && rate != nil && date != nil {
             self.init(shortCode: countryCode!, rate: rate!, lastUpdated: date!)
         } else {
-            self.init(shortCode: "AAA/AAA", rate: 6.02, lastUpdated: Date())
+            self.init(shortCode: "ZZZ", rate: 6.02, lastUpdated: Date())
         }
         
     }
@@ -279,7 +279,7 @@ class Currency: NSObject, NSCoding, Comparable {
 
     func addExchangeRate(key: String, rate: ExchangeRate) {
 //        print("adding...")
-//        rate.logExchangeRate()
+        rate.logExchangeRate()
         self.conversions[key] = rate
 //        print("added one exchange rate to \(self.country)")
     }
@@ -312,7 +312,7 @@ class Currency: NSObject, NSCoding, Comparable {
 //            print(queryString)
             // Network session is asyncronous so use a closure to act upon data once data is returned
             myYQL.query(queryString) { jsonDict in
-                var code: String
+                var longCode: String
                 var date: Date
                 var rate: Double
                 
@@ -324,10 +324,10 @@ class Currency: NSObject, NSCoding, Comparable {
                 let r = rates["rate"] as! [Dictionary<String,Any>]
                 for i in r {
 //                    print("Parsing YAHOO Finance data for \(fromCode)")
-                    let oneCurrencyRecord = i as! [String: Any]
+                    let oneCurrencyRecord = i 
                     
-                    code = oneCurrencyRecord["Name"]! as! String
-                    let shortCode = exchangeRateCountryCodeToCode(longCode: code)
+                    longCode = oneCurrencyRecord["Name"]! as! String
+                    let shortCode = exchangeRateCountryCodeToCode(longCode: longCode)
                     
                     let rateText:String = oneCurrencyRecord["Rate"]! as! String
                     
@@ -340,7 +340,7 @@ class Currency: NSObject, NSCoding, Comparable {
                     rate = Double(rateText)!
                     print("rate YQL lookup is \(rate)")
                     let exchangeRateObject: ExchangeRate = ExchangeRate(shortCode: shortCode, rate: rate, lastUpdated: date)
-                    self.addExchangeRate(key: code, rate: exchangeRateObject)
+                    self.addExchangeRate(key: shortCode, rate: exchangeRateObject)
                     
                 }
         }
@@ -360,11 +360,13 @@ func exchangeRateCountryCodeToCode( longCode: String) -> String {
     // I don't dare mess with my fragile YQL parsing at the moment
     // The way it is now, the country code is "USD/GBP",
     // but I really just want "GBP" part.
-    
+    print("stripping code down from \(longCode)")
+
     let needle: Character = "/"
     if let idx = longCode.characters.index(of: needle) {
         var code = longCode.substring(from: idx)
         code.remove(at: code.startIndex)
+        print("to \(code)")
         return code
     }
     else {

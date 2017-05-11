@@ -91,7 +91,9 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
                 componentsArray[0].append(countryName)
                 let currencyObject = worldCurrencies.currencyObjectForCode(code: shortCode)
                 flags.append(currencyObject?.flag)
-                rates.append(fromCurrency?.conversions[shortCode]?.rate)
+                let thisRate:Double = (fromCurrency?.conversions[shortCode]?.rate)!
+                print("collecting up data for Conversion View. rate for \(shortCode) is \(thisRate)")
+                rates.append(thisRate)
                 
             }
         }
