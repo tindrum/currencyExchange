@@ -28,7 +28,15 @@ I could go whole-hog and save the last-used convert-to currency for every curren
 ### Currency values shall be formatted correctly
 Each currency should have its native currency symbol and  shall display with the proper number of minor units.
 
-### Look, but don't copy-and-paste
+## Value-Added Features
+The customer wanted a basic currency converter app that works. Maybe that's what I delivered.
+But I _also_ added these great features:
++ Custom icon of a magenta backpack
++ Flags for each country
++ Other great stuff
+
+
+## Look, but don't copy-and-paste
 If you've found this repo while searching for the class name:
 
 * You can find a better example to plagiarize

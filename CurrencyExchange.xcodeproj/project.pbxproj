@@ -19,6 +19,7 @@
 		9D624EAE1EC04D3B003DF9B3 /* CurrencyLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D624EAD1EC04D3B003DF9B3 /* CurrencyLookup.swift */; };
 		9D84B7271EC1109200819F22 /* CurrencyArraySingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D84B7261EC1109200819F22 /* CurrencyArraySingleton.swift */; };
 		9DD1AE9E1EC30F5800FF42CC /* ConvertCurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD1AE9D1EC30F5800FF42CC /* ConvertCurrencyViewController.swift */; };
+		9DD1AEA21EC4026D00FF42CC /* currency_backpack.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DD1AEA11EC4026D00FF42CC /* currency_backpack.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		9D624EAD1EC04D3B003DF9B3 /* CurrencyLookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyLookup.swift; sourceTree = "<group>"; };
 		9D84B7261EC1109200819F22 /* CurrencyArraySingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyArraySingleton.swift; sourceTree = "<group>"; };
 		9DD1AE9D1EC30F5800FF42CC /* ConvertCurrencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertCurrencyViewController.swift; sourceTree = "<group>"; };
+		9DD1AEA11EC4026D00FF42CC /* currency_backpack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = currency_backpack.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 		9D624E831EBFE630003DF9B3 = {
 			isa = PBXGroup;
 			children = (
+				9DD1AEA11EC4026D00FF42CC /* currency_backpack.png */,
 				9D624E8E1EBFE630003DF9B3 /* CurrencyExchange */,
 				9D624E8D1EBFE630003DF9B3 /* Products */,
 			);
@@ -146,6 +149,7 @@
 			files = (
 				9D624E9A1EBFE630003DF9B3 /* LaunchScreen.storyboard in Resources */,
 				9D624E971EBFE630003DF9B3 /* Assets.xcassets in Resources */,
+				9DD1AEA21EC4026D00FF42CC /* currency_backpack.png in Resources */,
 				9D624E951EBFE630003DF9B3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
