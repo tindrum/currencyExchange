@@ -75,12 +75,9 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     //MARK: Conversion
     func stringsForConversions() -> [String] {
         // get the codes for the favorites
-        let faves:[String] = worldCurrencies.favoritesCodes()
-        print("these are the codes of the faves")
-        for fave in faves {
-            
-            print(fave)
-        }
+        let thisCountryCode = fromCurrency?.code
+        let faves:[String] = worldCurrencies.favoritesCodes(notIncluding: thisCountryCode!)
+
         var countries:[String] = []
         for rate in (fromCurrency?.conversions)! {
 //            let longCode = rate.value.countryCode
@@ -110,15 +107,12 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
 
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        resultString = ""
+        var countryName = ""
         for index in 0..<components.count{
-            let digit = components[index][pickerView.selectedRow(inComponent: index)]
-//                {
-//                    resultString += " " //add space if more than one character
-//                }
-            resultString += digit
+            // component.count better be 1
+            countryName = components[index][pickerView.selectedRow(inComponent: index)]
         }
-        pickerSelected.text = resultString
+        pickerSelected.text = countryName
     }
 
 }

@@ -87,6 +87,16 @@ class CurrencyArraySingleton {
         return favesArray
     }
     
+    func favoritesCodes(notIncluding: String) -> [String] {
+        var favesArray:[String] = []
+        for currency in worldCurrencies {
+            if currency.fave && currency.code != notIncluding {
+                favesArray.append(currency.code)
+            }
+        }
+        return favesArray
+    }
+    
 
     
     //MARK: Persistence Methods
