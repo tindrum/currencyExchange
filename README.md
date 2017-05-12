@@ -69,6 +69,8 @@ Christian Keur and Aaron Hillegass.
 
 [Table of currencies](https://en.wikipedia.org/wiki/List_of_circulating_currencies)
 
+[There's a currency exchange emoji](http://emojipedia.org/currency-exchange/)
+
 ## Difficult programming topics
 Or, how I learned to stop worrying and love Swift and iOS.
 
@@ -111,7 +113,7 @@ code.remove(at: code.startIndex)
 ```
 is a `Character`, but the action mutates the string `code` to be one shorter.
 
-Everything you were ever taught about strings is a lie. 
+Everything you were ever taught about strings is a lie.
 
 ## Important Xcode/iOS Development Gotchas
 ### Accessing URLs in an app

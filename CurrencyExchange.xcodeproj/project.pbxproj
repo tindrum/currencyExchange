@@ -8,10 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9D28B97B1EC51393007A281E /* CurrencyFavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28B97A1EC51393007A281E /* CurrencyFavoritesTableViewController.swift */; };
-		9D28B97D1EC517C9007A281E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28B97C1EC517C9007A281E /* TabBarController.swift */; };
 		9D28B97F1EC51E7E007A281E /* CurrencyFavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28B97E1EC51E7E007A281E /* CurrencyFavoritesTableViewCell.swift */; };
-		9D28B9811EC51F1C007A281E /* CurrencyTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28B9801EC51F1C007A281E /* CurrencyTabBarItem.swift */; };
-		9D28B9831EC51F3B007A281E /* CurrencyFavoritesTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28B9821EC51F3B007A281E /* CurrencyFavoritesTabBarItem.swift */; };
 		9D28B9851EC51F55007A281E /* WelcomeTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D28B9841EC51F55007A281E /* WelcomeTabBarItem.swift */; };
 		9D624E901EBFE630003DF9B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D624E8F1EBFE630003DF9B3 /* AppDelegate.swift */; };
 		9D624E921EBFE630003DF9B3 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D624E911EBFE630003DF9B3 /* WelcomeViewController.swift */; };
@@ -30,10 +27,7 @@
 
 /* Begin PBXFileReference section */
 		9D28B97A1EC51393007A281E /* CurrencyFavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyFavoritesTableViewController.swift; sourceTree = "<group>"; };
-		9D28B97C1EC517C9007A281E /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		9D28B97E1EC51E7E007A281E /* CurrencyFavoritesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyFavoritesTableViewCell.swift; sourceTree = "<group>"; };
-		9D28B9801EC51F1C007A281E /* CurrencyTabBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyTabBarItem.swift; sourceTree = "<group>"; };
-		9D28B9821EC51F3B007A281E /* CurrencyFavoritesTabBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyFavoritesTabBarItem.swift; sourceTree = "<group>"; };
 		9D28B9841EC51F55007A281E /* WelcomeTabBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeTabBarItem.swift; sourceTree = "<group>"; };
 		9D624E8C1EBFE630003DF9B3 /* CurrencyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D624E8F1EBFE630003DF9B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,15 +80,12 @@
 				9D624E8F1EBFE630003DF9B3 /* AppDelegate.swift */,
 				9D624EA31EBFE980003DF9B3 /* Currency.swift */,
 				9D84B7261EC1109200819F22 /* CurrencyArraySingleton.swift */,
-				9D28B97C1EC517C9007A281E /* TabBarController.swift */,
 				9D624EA91EC02EF6003DF9B3 /* CurrencyTableViewController.swift */,
-				9D28B9801EC51F1C007A281E /* CurrencyTabBarItem.swift */,
 				9D624EA71EC029E6003DF9B3 /* CurrencyTableViewCell.swift */,
 				9DD1AE9D1EC30F5800FF42CC /* ConvertCurrencyViewController.swift */,
 				9D624E911EBFE630003DF9B3 /* WelcomeViewController.swift */,
 				9D28B9841EC51F55007A281E /* WelcomeTabBarItem.swift */,
 				9D28B97A1EC51393007A281E /* CurrencyFavoritesTableViewController.swift */,
-				9D28B9821EC51F3B007A281E /* CurrencyFavoritesTabBarItem.swift */,
 				9D28B97E1EC51E7E007A281E /* CurrencyFavoritesTableViewCell.swift */,
 				9D624EAD1EC04D3B003DF9B3 /* CurrencyLookup.swift */,
 				9D624EAB1EC04CDC003DF9B3 /* YQL.swift */,
@@ -179,11 +170,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D28B9811EC51F1C007A281E /* CurrencyTabBarItem.swift in Sources */,
-				9D28B9831EC51F3B007A281E /* CurrencyFavoritesTabBarItem.swift in Sources */,
 				9D84B7271EC1109200819F22 /* CurrencyArraySingleton.swift in Sources */,
 				9D624EA81EC029E6003DF9B3 /* CurrencyTableViewCell.swift in Sources */,
-				9D28B97D1EC517C9007A281E /* TabBarController.swift in Sources */,
 				9D624EA41EBFE980003DF9B3 /* Currency.swift in Sources */,
 				9D28B9851EC51F55007A281E /* WelcomeTabBarItem.swift in Sources */,
 				9D28B97F1EC51E7E007A281E /* CurrencyFavoritesTableViewCell.swift in Sources */,

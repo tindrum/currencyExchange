@@ -49,7 +49,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="bAC-tR-eb1"/>
+                    <tabBarItem key="tabBarItem" title="About" image="about" id="bAC-tR-eb1"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -68,7 +68,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HXB-SE-0oF" id="yHU-Z4-fLP">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="35.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GRD-BS-jxJ">
@@ -95,7 +95,7 @@
                             <outlet property="delegate" destination="wFl-AZ-s7H" id="RSv-W2-foL"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="HmS-Bf-4BU"/>
+                    <tabBarItem key="tabBarItem" title="Convert" image="convert" id="HmS-Bf-4BU"/>
                     <connections>
                         <outlet property="view" destination="X9m-Dw-uyi" id="aVk-OT-4oU"/>
                         <segue destination="InZ-3O-ZlE" kind="show" identifier="convertCurrency" id="Tax-gf-KET"/>
@@ -118,7 +118,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DDe-5P-SCf" id="XnJ-R6-3Vf">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -128,7 +128,7 @@
                             <outlet property="delegate" destination="yo2-cX-p3k" id="VMT-YZ-UfF"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="dup-Rt-7OC"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="favorite" id="dup-Rt-7OC"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H2w-Sg-w80" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -247,13 +247,14 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="RKK-35-ucw" customClass="TabBarController" customModule="CurrencyExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Ja5-HB-NlY">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Cee-HZ-W2s"/>
                         <segue destination="wFl-AZ-s7H" kind="relationship" relationship="viewControllers" id="aL7-Sw-YiM"/>
                         <segue destination="yo2-cX-p3k" kind="relationship" relationship="viewControllers" id="blq-pj-tkC"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Cee-HZ-W2s"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Yw-nI-0t4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -262,6 +263,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="about" width="25" height="25"/>
+        <image name="convert" width="25" height="25"/>
+        <image name="favorite" width="25" height="25"/>
         <image name="generic_flag" width="177" height="89"/>
     </resources>
 </document>
