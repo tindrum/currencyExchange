@@ -20,6 +20,9 @@ class CurrencyArraySingleton {
         return documentDirectory.appendingPathComponent("worldCurrencies.archive")
     }()
 
+    // TODO: Reduce the number of YQL queries. 
+    //       Each time the Exchange Rate tableView comes back into scope,
+    //       I'm reloading all the exchange rates for each of the faves.
     
     private init() { //This prevents others from using the default '()' initializer for this class.
         

@@ -71,6 +71,14 @@ Christian Keur and Aaron Hillegass.
 
 [There's a currency exchange emoji](http://emojipedia.org/currency-exchange/)
 
+Creating a NumberFormatter for the amount of money wasn't really that hard, after learning enough about the currencySymbol property.
+[This is a decent example](http://stackoverflow.com/questions/31999748/get-currency-symbols-from-currency-code-with-swift),
+though I looked at others to get the gist of it. The part to know is how to convert an ISO currency code to a currency symbol using Apple's already-existing API to do just that.
+
+I brute-forced the minor units in currency.
+[Here's the source for how many digits each country] uses(http://www.thefinancials.com/?SubSectionID=curformat).
+With that, I formatted a subset of their table into a switch/case statement.
+
 ## Difficult programming topics
 Or, how I learned to stop worrying and love Swift and iOS.
 

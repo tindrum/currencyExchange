@@ -6,6 +6,7 @@
 //  Copyright © 2017 Daniel Henderson. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 // The last conversion made in the ConvertCurrency view
@@ -146,7 +147,18 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
             toCountryName.text = components[0][indexOfPicked]
             toFlag.image = flags[indexOfPicked]
             if ((rates[indexOfPicked]) != nil) {
-                toExchangeRate.text = String(rates[indexOfPicked]!)
+                let currencyFormatter = NumberFormatter()
+                let specialParts:(Int, String, String) = specialFormattingFor(countryCode: codes[indexOfPicked])
+                currencyFormatter.currencySymbol = getSymbolForCurrencyCode(code: codes[indexOfPicked])
+                currencyFormatter.maximumFractionDigits = specialParts.0
+                currencyFormatter.minimumFractionDigits = specialParts.0
+                currencyFormatter.currencyGroupingSeparator = specialParts.1
+                currencyFormatter.currencyDecimalSeparator = specialParts.2
+                currencyFormatter.numberStyle = NumberFormatter.Style.currency
+                let r = rates[indexOfPicked]!
+                toExchangeRate.text = currencyFormatter.string(from: NSNumber(value: r))
+//                stringFromDouble(rates[indexOfPicked]!)
+//                toExchangeRate.text = String(rates[indexOfPicked]!)
             } else {
                 toExchangeRate.text = "???"
             }
@@ -156,7 +168,37 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         }
     }
 
-
+    func getSymbolForCurrencyCode(code: String) -> String? {
+        let locale = NSLocale(localeIdentifier: code)
+        return locale.displayName(forKey: NSLocale.Key.currencySymbol, value: code)
+    }
+    
+    func specialFormattingFor( countryCode: String) -> (Int, String, String) {
+        // This is a brute-force way to find the minor units.
+        // Source of data for this is http://www.thefinancials.com/?SubSectionID=curformat
+        // .1 is grouping separator
+        // .2 is decimal seperator
+        //
+        // TODO: Rupee from India actually has #,##,###.##, 
+        //       so variable number of digits in groupings
+        //
+        // TODO: Find the Apple way to do this. It must exist
+        // If there's a an Apple API for these things, 
+        // I couldn't find then in time to use them.
+        switch countryCode {
+        case "USD", "CAD", "EGP", "INR", "ILS", "MXN", "PEN", "SAR", "SGD",
+             "THB", "CNY", "AED", "GBP", "EUR":
+            return(2, ",", ".")
+        case "AUD", "ZAR":
+            return (2, " ", ".")
+        case "BRL":
+            return (2, ".", ",")
+        case "JPY", "KRW":
+            return (0, ",", "")
+        default:
+            return (2, ",", ".")
+        }
+    }
 }
 
 
