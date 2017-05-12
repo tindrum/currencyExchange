@@ -18,7 +18,11 @@ class CurrencyTableViewController: UITableViewController, ConvertCurrencyViewCon
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        let adjustForTabbarInsets: UIEdgeInsets = UIEdgeInsetsMake(self.tabBarController!.tabBar.frame.height, 0, 0, 0);
+        //Where tableview is the IBOutlet for your storyboard tableview.
+        self.tableView.contentInset = adjustForTabbarInsets;
+        self.tableView.scrollIndicatorInsets = adjustForTabbarInsets;
+
     }
 
     override func didReceiveMemoryWarning() {
