@@ -142,6 +142,9 @@
                                         </button>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" allowsDirectInteraction="YES"/>
+                                </accessibility>
                                 <connections>
                                     <outlet property="countryLabel" destination="UFe-rQ-mZm" id="bc1-Ik-43K"/>
                                     <outlet property="faveImage" destination="SYw-9p-M0Z" id="My5-7q-N8K"/>

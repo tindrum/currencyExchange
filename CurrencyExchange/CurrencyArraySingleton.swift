@@ -86,6 +86,7 @@ class CurrencyArraySingleton {
     }
     
     func updateFaveExchangeRates() {
+        worldCurrencies.sort()
         let faves = worldCurrencies.filter{ $0.fave }
 
         print("** requesting update of exchange rates")

@@ -10,6 +10,7 @@ import UIKit
 
 class CurrencyFavoritesTableViewController: UITableViewController {
     var worldCurrencies = CurrencyArraySingleton.sharedInstance
+    var selectedCurrency:Currency?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +62,25 @@ class CurrencyFavoritesTableViewController: UITableViewController {
        }
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedCurrency = worldCurrencies.currencyForIndex(index: indexPath.item)
+        //getting the current cell from the index path
+        let currentCell = tableView.cellForRow(at: indexPath)! as! CurrencyFavoritesTableViewCell
+        
+        if (selectedCurrency?.fave)! {
+            selectedCurrency?.fave = false
+            currentCell.faveImage.setImage(#imageLiteral(resourceName: "unfave"), for: UIControlState.normal)
+
+        } else {
+            selectedCurrency?.fave = true
+            currentCell.faveImage.setImage(#imageLiteral(resourceName: "fave"), for: UIControlState.normal)
+
+        }
+        
+        
+    }
+
 
     /*
     // Override to support conditional editing of the table view.

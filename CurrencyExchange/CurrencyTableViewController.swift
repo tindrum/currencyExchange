@@ -26,8 +26,15 @@ class CurrencyTableViewController: UITableViewController, ConvertCurrencyViewCon
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("View will appear")
+        print("is this a good place to reload favorites?")
+        worldCurrencies.updateFaveExchangeRates()
+        self.tableView.reloadData()
+    }
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -35,6 +42,7 @@ class CurrencyTableViewController: UITableViewController, ConvertCurrencyViewCon
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Use the function from the Singleton
         let count = worldCurrencies.numberOfFavorites()
+        print("queried number of faves, now \(count) favorites.")
         return count
     }
 
