@@ -53,11 +53,9 @@ class CurrencyFavoritesTableViewController: UITableViewController {
         cell.countryLabel.text = currency.country
         cell.flagImageView.image = currency.flag
         if currency.fave {
-            cell.faveImage.setImage(#imageLiteral(resourceName: "fave"), for: UIControlState.normal)
-            cell.faveImage.setImage(#imageLiteral(resourceName: "fave_toggle"), for: UIControlState.selected)
+            cell.faveStar.image = #imageLiteral(resourceName: "fave")
         } else {
-            cell.faveImage.setImage(#imageLiteral(resourceName: "unfave"), for: UIControlState.normal)
-            cell.faveImage.setImage(#imageLiteral(resourceName: "fave_toggle"), for: UIControlState.selected)
+            cell.faveStar.image = #imageLiteral(resourceName: "unfave")
        }
         return cell
     }
@@ -69,11 +67,11 @@ class CurrencyFavoritesTableViewController: UITableViewController {
         
         if (selectedCurrency?.fave)! {
             selectedCurrency?.fave = false
-            currentCell.faveImage.setImage(#imageLiteral(resourceName: "unfave"), for: UIControlState.normal)
+            currentCell.faveStar.image = #imageLiteral(resourceName: "unfave")
 
         } else {
             selectedCurrency?.fave = true
-            currentCell.faveImage.setImage(#imageLiteral(resourceName: "fave"), for: UIControlState.normal)
+            currentCell.faveStar.image = #imageLiteral(resourceName: "fave")
 
         }
         

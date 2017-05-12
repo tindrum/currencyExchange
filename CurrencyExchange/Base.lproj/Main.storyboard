@@ -142,32 +142,22 @@
                                                 <constraint firstAttribute="width" constant="60" id="qHc-dg-D7n"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFe-rQ-mZm">
-                                            <rect key="frame" x="76" y="7" width="243" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFe-rQ-mZm">
+                                            <rect key="frame" x="76" y="7" width="247" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="right" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYw-9p-M0Z">
-                                            <rect key="frame" x="334" y="1" width="34" height="34"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="34" id="oWf-xh-bQE"/>
-                                            </constraints>
-                                            <state key="normal" title="Button" image="unfave"/>
-                                            <connections>
-                                                <action selector="toggleFavorite:" destination="DDe-5P-SCf" eventType="touchUpInside" id="oUA-p1-HFh"/>
-                                            </connections>
-                                        </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jnb-JH-u3X">
+                                            <rect key="frame" x="335" y="3" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="6Vj-hP-dSe" firstAttribute="top" secondItem="XnJ-R6-3Vf" secondAttribute="topMargin" constant="-6" id="2Nf-vR-Bvi"/>
-                                        <constraint firstItem="SYw-9p-M0Z" firstAttribute="leading" secondItem="UFe-rQ-mZm" secondAttribute="trailing" constant="15" id="3pg-UO-Hgt"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="SYw-9p-M0Z" secondAttribute="trailing" constant="-1" id="6My-mW-OcR"/>
                                         <constraint firstItem="UFe-rQ-mZm" firstAttribute="leading" secondItem="6Vj-hP-dSe" secondAttribute="trailing" constant="8" symbolic="YES" id="BqA-C1-CgT"/>
-                                        <constraint firstItem="UFe-rQ-mZm" firstAttribute="centerY" secondItem="SYw-9p-M0Z" secondAttribute="centerY" id="Gwp-iU-Wk8"/>
                                         <constraint firstItem="6Vj-hP-dSe" firstAttribute="centerY" secondItem="UFe-rQ-mZm" secondAttribute="centerY" id="Lzd-OZ-Nol"/>
                                         <constraint firstItem="6Vj-hP-dSe" firstAttribute="leading" secondItem="XnJ-R6-3Vf" secondAttribute="leadingMargin" id="TWR-9Q-xgc"/>
-                                        <constraint firstItem="SYw-9p-M0Z" firstAttribute="top" secondItem="XnJ-R6-3Vf" secondAttribute="topMargin" constant="-7" id="rr1-a2-kbs"/>
                                         <constraint firstItem="6Vj-hP-dSe" firstAttribute="centerY" secondItem="XnJ-R6-3Vf" secondAttribute="centerY" id="y1A-c8-0Kp"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -176,7 +166,7 @@
                                 </accessibility>
                                 <connections>
                                     <outlet property="countryLabel" destination="UFe-rQ-mZm" id="bc1-Ik-43K"/>
-                                    <outlet property="faveImage" destination="SYw-9p-M0Z" id="My5-7q-N8K"/>
+                                    <outlet property="faveStar" destination="jnb-JH-u3X" id="y3j-CY-mZB"/>
                                     <outlet property="flagImageView" destination="6Vj-hP-dSe" id="gnN-QW-8ww"/>
                                 </connections>
                             </tableViewCell>
@@ -326,6 +316,5 @@
         <image name="convert" width="25" height="25"/>
         <image name="favorite" width="25" height="25"/>
         <image name="generic_flag" width="177" height="89"/>
-        <image name="unfave" width="30" height="30"/>
     </resources>
 </document>

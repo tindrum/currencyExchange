@@ -12,13 +12,8 @@ class CurrencyFavoritesTableViewCell: UITableViewCell {
     // MARK: Properties
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var flagImageView: UIImageView!
-    @IBOutlet weak var faveImage: UIButton!
     
-    @IBAction func toggleFavorite(_ sender: Any) {
-        
-        
-    }
-
+    @IBOutlet weak var faveStar: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
