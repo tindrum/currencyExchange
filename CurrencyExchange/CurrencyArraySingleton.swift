@@ -33,7 +33,7 @@ class CurrencyArraySingleton {
         } else {
             // if not, load default currencies
             print("CREATING DEFAULT CURRENCIES")
-            loadCurrencies()
+            createDefaultCurrencies()
         }
 //        print("faves are:")
 //        let faves = worldCurrencies.filter{ $0.fave }
@@ -117,7 +117,19 @@ class CurrencyArraySingleton {
         return favesArray
     }
     
-
+    func resetToDefaults() {
+        // empty the current array
+        worldCurrencies = []
+        // delete the data file
+//        itemArchiveURL
+        do {
+            let fm:FileManager = FileManager()
+            try fm.removeItem(at: itemArchiveURL)
+        } catch _ as NSError {
+            print("couldn't delete prefs file")
+        }
+        createDefaultCurrencies()
+    }
     
     //MARK: Persistence Methods
     
@@ -131,7 +143,7 @@ class CurrencyArraySingleton {
     
     
     
-    private func loadCurrencies() {
+    private func createDefaultCurrencies() {
         let flags = ["usa", "uk", "canada", "mexico", "europe", "japan", "australia", "brazil", "egypt", "india", "israel", "peru", "saudi", "singapore", "safrica", "skorea", "thailand", "china", "uae"]
         let countries = ["USD",  "GBP", "CAD", "MXN", "EUR", "JPY", "AUD", "BRL", "EGP", "INR", "ILS", "PEN", "SAR", "SGD", "ZAR", "KRW", "THB", "CNY", "AED"]
         
@@ -147,7 +159,7 @@ class CurrencyArraySingleton {
             }
             
             worldCurrencies.sort()
-//            print("list all currencies, after loadCurrencies() called")
+//            print("list all currencies, after createDefaultCurrencies() called")
 //            for c in worldCurrencies {
 //                print(c.country)
 //                print(c.flagFile)

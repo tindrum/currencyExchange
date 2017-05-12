@@ -9,6 +9,10 @@
 import UIKit
 
 class WelcomeViewController: UIViewController {
+    var worldCurrencies = CurrencyArraySingleton.sharedInstance
+    @IBAction func resetToDefaults(_ sender: UIButton) {
+        worldCurrencies.resetToDefaults()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
