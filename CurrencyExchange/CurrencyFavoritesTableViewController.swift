@@ -27,26 +27,40 @@ class CurrencyFavoritesTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        // Use the function from the Singleton
+        let count = worldCurrencies.numberOfCurrencies()
+        return count
     }
-
-    /*
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        // Table view cells are reused and should be dequeued using a cell identifier.
+        let cellIdentifier = "CurrencyFavoritesTableViewCell"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? CurrencyFavoritesTableViewCell else {
+            fatalError("The dequeued cell is not an instance of CurrencyFavoritesTableViewCell.")
+        }
+        
+        // Fetches the appropriate currency for the data source layout
+        let currency = worldCurrencies.currencyForIndex(index: indexPath.row)
+        
+        cell.countryLabel.text = currency.country
+        cell.flagImageView.image = currency.flag
+        if currency.fave {
+            cell.faveImage.setImage(#imageLiteral(resourceName: "fave"), for: UIControlState.normal)
+            cell.faveImage.setImage(#imageLiteral(resourceName: "fave_toggle"), for: UIControlState.selected)
+        } else {
+            cell.faveImage.setImage(#imageLiteral(resourceName: "unfave"), for: UIControlState.normal)
+            cell.faveImage.setImage(#imageLiteral(resourceName: "fave_toggle"), for: UIControlState.selected)
+       }
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
