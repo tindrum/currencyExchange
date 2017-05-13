@@ -47,6 +47,7 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     var worldCurrencies = CurrencyArraySingleton.sharedInstance
     
     var fromCurrency: Currency?
+    var userEnteredAmount: Double = 0.0
     @IBOutlet weak var fromCurrencyName: UILabel!
     @IBOutlet weak var flag: UIImageView!
     
@@ -69,6 +70,7 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     // Currency Exchange
     @IBOutlet weak var fromCurrencyAmount: UITextField!
     @IBOutlet weak var toCurrencyAmount: UILabel!
+    
     
     
     @IBAction func fromCurrencyAction(_ sender: UITextField) {
@@ -106,6 +108,7 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        userEnteredAmount = 0.0
         fromCurrencyAmount.delegate = self
         fromCurrencyName.text = fromCurrency?.country ?? "No Country"
         flag.image = fromCurrency?.flag
@@ -139,10 +142,29 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     
 // MARK: Text Field delegates
     
-    // Notifications
+
+    // FIXME: There has got to be a more elegant way to 
+    //        do the text.
+    //        The only reason I'm doing this is because the
+    //        currency code in the number will cause a crash
+    //        when trying to parse as a Double.
+    //        
+    //        There are a whole slew of refactors taht need to be done:
+    //        * make all the text selected when entering edit of text field
+    //        * maybe save the last value typed for the protocol/delegate that will show the flag,
+    //          and use that value when we return.
+    //        * don't show '0.0' for the initial value.
+    //        * Do lots of text_did_edit monkey business to 
+    //          show the from -> currency in its proper format.
+    //        * Do more text_did_edit monkeying to show proper number of decimals
+    
     func keyboardWillShow(notification:Notification) {
+        // TODO: move the text updating to 
+        //       the delegate of the text field.
+        //       Putting it here is clearly wrong.
         print("keyboard will show now. hide the picker")
         toCurrencyPicker.isHidden = true
+        fromCurrencyAmount.text = String(userEnteredAmount)
         
     }
     
@@ -153,7 +175,15 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        // TODO: move the text updating to
+        //       the delegate of the text field.
+        //       Putting it here is clearly wrong.
         view.endEditing(true)
+        let fromAmount = fromCurrencyAmount.text
+        userEnteredAmount = Double(fromAmount!)!
+        let formatter: NumberFormatter = getFormatterFor(code: (fromCurrency?.code)!)
+        fromCurrencyAmount.text = formatter.string(from: NSNumber(value: Double(fromAmount!)!))
+        
     }
     
     // MARK: - Navigation
