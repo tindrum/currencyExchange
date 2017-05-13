@@ -25,7 +25,6 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     var fromCurrency: Currency?
     @IBOutlet weak var fromCurrencyName: UILabel!
     @IBOutlet weak var flag: UIImageView!
-    @IBOutlet weak var numConversions: UILabel!
     
     // Currencies to convert TO
     @IBOutlet weak var toCountryName: UILabel!
@@ -51,7 +50,6 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
 
         fromCurrencyName.text = fromCurrency?.country ?? "No Country"
         flag.image = fromCurrency?.flag
-        numConversions.text = String(fromCurrency?.numberOfConversions ?? 0)
         toCurrencyPicker.dataSource = self
         toCurrencyPicker.delegate = self
 //        components = [stringsForConversions()]
@@ -147,16 +145,17 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
             toCountryName.text = components[0][indexOfPicked]
             toFlag.image = flags[indexOfPicked]
             if ((rates[indexOfPicked]) != nil) {
-                let currencyFormatter = NumberFormatter()
-                let specialParts:(Int, String, String) = specialFormattingFor(countryCode: codes[indexOfPicked])
-                currencyFormatter.currencySymbol = getSymbolForCurrencyCode(code: codes[indexOfPicked])
-                currencyFormatter.maximumFractionDigits = specialParts.0
-                currencyFormatter.minimumFractionDigits = specialParts.0
-                currencyFormatter.currencyGroupingSeparator = specialParts.1
-                currencyFormatter.currencyDecimalSeparator = specialParts.2
-                currencyFormatter.numberStyle = NumberFormatter.Style.currency
+//                let currencyFormatter = NumberFormatter()
+//                let specialParts:(Int, String, String) = specialFormattingFor(countryCode: codes[indexOfPicked])
+//                currencyFormatter.currencySymbol = getSymbolForCurrencyCode(code: codes[indexOfPicked])
+//                currencyFormatter.maximumFractionDigits = specialParts.0
+//                currencyFormatter.minimumFractionDigits = specialParts.0
+//                currencyFormatter.currencyGroupingSeparator = specialParts.1
+//                currencyFormatter.currencyDecimalSeparator = specialParts.2
+//                currencyFormatter.numberStyle = NumberFormatter.Style.currency
                 let r = rates[indexOfPicked]!
-                toExchangeRate.text = currencyFormatter.string(from: NSNumber(value: r))
+//                toExchangeRate.text = currencyFormatter.string(from: NSNumber(value: r))
+                toExchangeRate.text = getFormatterFor(code: codes[indexOfPicked]).string(from: NSNumber(value: r))
 //                stringFromDouble(rates[indexOfPicked]!)
 //                toExchangeRate.text = String(rates[indexOfPicked]!)
             } else {
@@ -171,6 +170,19 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     func getSymbolForCurrencyCode(code: String) -> String? {
         let locale = NSLocale(localeIdentifier: code)
         return locale.displayName(forKey: NSLocale.Key.currencySymbol, value: code)
+    }
+    
+    func getFormatterFor(code: String) -> NumberFormatter {
+        let currencyFormatter:NumberFormatter = NumberFormatter()
+        let specialParts:(Int, String, String) = specialFormattingFor(countryCode: code)
+        currencyFormatter.currencySymbol = getSymbolForCurrencyCode(code: code)
+        currencyFormatter.maximumFractionDigits = specialParts.0
+        currencyFormatter.minimumFractionDigits = specialParts.0
+        currencyFormatter.currencyGroupingSeparator = specialParts.1
+        currencyFormatter.currencyDecimalSeparator = specialParts.2
+        currencyFormatter.numberStyle = NumberFormatter.Style.currency
+        return currencyFormatter
+        
     }
     
     func specialFormattingFor( countryCode: String) -> (Int, String, String) {
