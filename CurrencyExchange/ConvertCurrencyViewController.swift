@@ -99,11 +99,13 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(ConvertCurrencyViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-//        
-//        NotificationCenter.default.addObserver(self, selector: #selector(ConvertCurrencyViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-//        
-    }
+        //Looks for single or multiple taps.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ConvertCurrencyViewController.dismissKeyboard))
+        
+        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+        //tap.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(tap)    }
     
 
     func didReceiveMemoryWarning(notification: NSNotification) {
@@ -111,7 +113,7 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         // Dispose of any resources that can be recreated.
     }
     
-// Text Field delegates
+// MARK: Text Field delegates
     
     // Notifications
     func keyboardWillShow(notification:Notification) {
@@ -124,6 +126,10 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         print("keyboard will hide, show the picker")
         toCurrencyPicker.isHidden = false
         
+    }
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     // MARK: - Navigation
@@ -182,7 +188,7 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     //MARK: Picker
-    //:MARK - Delegates and data sources
+    //MARK: - Delegates and data sources
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return components.count
     }
@@ -207,14 +213,6 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
             toCountryName.text = components[0][indexOfPicked]
             toFlag.image = flags[indexOfPicked]
             if ((rates[indexOfPicked]) != nil) {
-//                let currencyFormatter = NumberFormatter()
-//                let specialParts:(Int, String, String) = specialFormattingFor(countryCode: codes[indexOfPicked])
-//                currencyFormatter.currencySymbol = getSymbolForCurrencyCode(code: codes[indexOfPicked])
-//                currencyFormatter.maximumFractionDigits = specialParts.0
-//                currencyFormatter.minimumFractionDigits = specialParts.0
-//                currencyFormatter.currencyGroupingSeparator = specialParts.1
-//                currencyFormatter.currencyDecimalSeparator = specialParts.2
-//                currencyFormatter.numberStyle = NumberFormatter.Style.currency
                 let r = rates[indexOfPicked]!
                 toExchangeRateDouble = r
                 selectedExchangeRateCode = codes[indexOfPicked]
