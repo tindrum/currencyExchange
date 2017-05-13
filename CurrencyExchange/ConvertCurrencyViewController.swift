@@ -55,7 +55,11 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
 //        components = [stringsForConversions()]
         components.append([String]())
         prepareDataForPicker(componentsArray: &components, codes: &codes, rates: &rates, flags: &flags)
+        let pickerReturnData:(Int, Int) = (0, 0)
+        toCurrencyPicker.selectRow(pickerReturnData.0, inComponent: pickerReturnData.1, animated: true)
+        pickerView(toCurrencyPicker, didSelectRow: pickerReturnData.0, inComponent: pickerReturnData.1)
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
