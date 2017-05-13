@@ -46,20 +46,37 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     @IBOutlet weak var fromCurrencyAmount: UITextField!
     @IBOutlet weak var toCurrencyAmount: UILabel!
     
+    
     @IBAction func fromCurrencyAction(_ sender: UITextField) {
-        let convertedAmount = toExchangeRateDouble * Double(fromCurrencyAmount.text!)!
-        let formatter = getFormatterFor(code: selectedExchangeRateCode)
+        let convertedAmount:Double
+        // TODO: this is not DRY
+        if fromCurrencyAmount.text != "" {
+            convertedAmount = toExchangeRateDouble * Double(fromCurrencyAmount.text!)!
+        } else {
+            convertedAmount = 0.0
+
+        }
+            let formatter = getFormatterFor(code: selectedExchangeRateCode)
         toCurrencyAmount.text = formatter.string(from: NSNumber(value: convertedAmount))
         
     }
     
     @IBAction func fromCurrencyEditingChanged(_ sender: UITextField) {
-        let convertedAmount = toExchangeRateDouble * Double(fromCurrencyAmount.text!)!
+        // TODO: this is not DRY
+        let convertedAmount:Double
+        if fromCurrencyAmount.text != "" {
+            convertedAmount = toExchangeRateDouble * Double(fromCurrencyAmount.text!)!
+        } else {
+            convertedAmount = 0.0
+        }
         let formatter = getFormatterFor(code: selectedExchangeRateCode)
         toCurrencyAmount.text = formatter.string(from: NSNumber(value: convertedAmount))
         
     }
     
+    func keyboardWillShow() {
+        print("keyboard popping up!")
+    }
     
     var resultString = ""
 
@@ -80,16 +97,26 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         let pickerReturnData:(Int, Int) = (0, 0)
         toCurrencyPicker.selectRow(pickerReturnData.0, inComponent: pickerReturnData.1, animated: true)
         pickerView(toCurrencyPicker, didSelectRow: pickerReturnData.0, inComponent: pickerReturnData.1)
+
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(ConvertCurrencyViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+//        
+//        NotificationCenter.default.addObserver(self, selector: #selector(ConvertCurrencyViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//        
     }
     
 
-    override func didReceiveMemoryWarning() {
+    func didReceiveMemoryWarning(notification: NSNotification) {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+// Text Field delegates
+    func keyboardWillShow(notification:Notification) {
+        print("keyboard will show now. hide the picker")
+    }
     
     // MARK: - Navigation
 
