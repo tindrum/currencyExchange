@@ -101,9 +101,16 @@ class ExchangeRate: NSObject, NSCoding {
     
 }
 
-// TODO: Add a field for "lastConversion", so CurrencyTableView can show the flag
+// TODO: Add a field for "lastConversion"
+//       so CurrencyTableView can show the flag
 //       of the to-> currency along with each country in that table.
-//       
+//     
+// TODO: Create better tab icons
+//       with consistent weight to thickness.
+//       Favorite star on tab bar has thinner line width than others.
+//       About icon is maybe a tad visually thicker than needed.
+//       Convert icon is the emoji for Currency_Conversion, so
+//       maybe need to not use it if it's copyrighted.
 
 class Currency: NSObject, NSCoding, Comparable {
     //MARK: Properties
@@ -383,6 +390,10 @@ func exchangeRateCountryCodeToCountryName ( code: String ) -> String {
     let shortCode = exchangeRateCountryCodeToCode(longCode: code)
     return codeToCountryName(code: shortCode)
 }
+
+// TODO: Put all these lookups in a separate, consistent section.
+//       A similar lookup is being done in the ConvertCurrencyViewController.
+//       They should be in the same place, or refactored as a protocol?
 
 func codeToCountryName(code: String) -> String {
     switch code {

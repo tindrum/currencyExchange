@@ -270,7 +270,12 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         return currencyFormatter
         
     }
+   
+    // TODO: Put all these lookups in a separate, consistent section.
+    //       A similar lookup is being done in the Currency model class.
+    //       They should be in the same place, or refactored as a protocol?
     
+
     func specialFormattingFor( countryCode: String) -> (Int, String, String) {
         // This is a brute-force way to find the minor units.
         // Source of data for this is http://www.thefinancials.com/?SubSectionID=curformat

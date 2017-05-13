@@ -8,6 +8,16 @@
 
 import UIKit
 
+
+// TODO: make a better fave icon at a better resolution. 
+//
+// TODO: allow sorting of the list by the user.
+//      
+// FIXME: Make sure there are at least two favorites.
+//       Have not tested only one fave, but that would 
+//       leave no currency to convert to.
+//
+
 class CurrencyFavoritesTableViewController: UITableViewController {
     var worldCurrencies = CurrencyArraySingleton.sharedInstance
     var selectedCurrency:Currency?
