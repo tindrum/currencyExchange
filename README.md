@@ -33,7 +33,8 @@ The customer wanted a basic currency converter app that works. Maybe that's what
 But I _also_ added these great features:
 + Custom icon of a magenta backpack
 + Flags for each country
-+ Other great stuff
++ About view that allows resetting of Favorites
++ Hides UIPicker during text imput to avoid hiding content
 
 
 ## Look, but don't copy-and-paste
