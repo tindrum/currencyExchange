@@ -19,7 +19,7 @@ protocol ConvertCurrencyViewControllerDelegate {
 //}
 
 
-class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     var worldCurrencies = CurrencyArraySingleton.sharedInstance
     
     var fromCurrency: Currency?
@@ -29,6 +29,8 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     // Currencies to convert TO
     @IBOutlet weak var toCountryName: UILabel!
     @IBOutlet weak var toExchangeRate: UILabel!
+    var toExchangeRateDouble: Double = 0.0
+    var selectedExchangeRateCode: String = "USD"
     @IBOutlet weak var toCountryCode: UILabel!
     
     @IBOutlet weak var toFlag: UIImageView!
@@ -40,6 +42,25 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     var rates = [Double?]()
     var flags = [UIImage?]()
     
+    // Currency Exchange
+    @IBOutlet weak var fromCurrencyAmount: UITextField!
+    @IBOutlet weak var toCurrencyAmount: UILabel!
+    
+    @IBAction func fromCurrencyAction(_ sender: UITextField) {
+        let convertedAmount = toExchangeRateDouble * Double(fromCurrencyAmount.text!)!
+        let formatter = getFormatterFor(code: selectedExchangeRateCode)
+        toCurrencyAmount.text = formatter.string(from: NSNumber(value: convertedAmount))
+        
+    }
+    
+    @IBAction func fromCurrencyEditingChanged(_ sender: UITextField) {
+        let convertedAmount = toExchangeRateDouble * Double(fromCurrencyAmount.text!)!
+        let formatter = getFormatterFor(code: selectedExchangeRateCode)
+        toCurrencyAmount.text = formatter.string(from: NSNumber(value: convertedAmount))
+        
+    }
+    
+    
     var resultString = ""
 
     var delegate:ConvertCurrencyViewControllerDelegate! = nil
@@ -48,6 +69,7 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        fromCurrencyAmount.delegate = self
         fromCurrencyName.text = fromCurrency?.country ?? "No Country"
         flag.image = fromCurrency?.flag
         toCurrencyPicker.dataSource = self
@@ -58,6 +80,7 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         let pickerReturnData:(Int, Int) = (0, 0)
         toCurrencyPicker.selectRow(pickerReturnData.0, inComponent: pickerReturnData.1, animated: true)
         pickerView(toCurrencyPicker, didSelectRow: pickerReturnData.0, inComponent: pickerReturnData.1)
+        
     }
     
 
@@ -158,6 +181,8 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
 //                currencyFormatter.currencyDecimalSeparator = specialParts.2
 //                currencyFormatter.numberStyle = NumberFormatter.Style.currency
                 let r = rates[indexOfPicked]!
+                toExchangeRateDouble = r
+                selectedExchangeRateCode = codes[indexOfPicked]
 //                toExchangeRate.text = currencyFormatter.string(from: NSNumber(value: r))
                 toExchangeRate.text = getFormatterFor(code: codes[indexOfPicked]).string(from: NSNumber(value: r))
 //                stringFromDouble(rates[indexOfPicked]!)

@@ -277,6 +277,10 @@ The source for this software is available on github.  The Yahoo Query Language
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="fromCurrencyAction:" destination="InZ-3O-ZlE" eventType="editingDidEnd" id="Bqo-eP-5ZF"/>
+                                    <action selector="fromCurrencyEditingChanged:" destination="InZ-3O-ZlE" eventType="editingChanged" id="5zb-q6-SG1"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="converts to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1c-TQ-PXS">
                                 <rect key="frame" x="132" y="463" width="110" height="21"/>
@@ -297,9 +301,11 @@ The source for this software is available on github.  The Yahoo Query Language
                     </view>
                     <connections>
                         <outlet property="flag" destination="C8I-9B-9iq" id="cF0-SR-tQi"/>
+                        <outlet property="fromCurrencyAmount" destination="6E1-AT-fKG" id="dOJ-g6-tgP"/>
                         <outlet property="fromCurrencyName" destination="TqK-mc-jWJ" id="Ik9-TB-cuO"/>
                         <outlet property="toCountryCode" destination="mO2-5b-6Ls" id="f6o-Z8-Flp"/>
                         <outlet property="toCountryName" destination="qd8-iB-iS0" id="vqk-4H-Dpi"/>
+                        <outlet property="toCurrencyAmount" destination="1iH-TY-Txd" id="NIe-IV-wkI"/>
                         <outlet property="toCurrencyPicker" destination="0yi-Me-V8D" id="gRy-NB-gnh"/>
                         <outlet property="toExchangeRate" destination="qlR-lJ-w1b" id="vqt-mM-lKa"/>
                         <outlet property="toFlag" destination="ylt-Ua-7mD" id="nkk-Dd-yOS"/>
