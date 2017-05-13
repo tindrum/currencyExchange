@@ -74,10 +74,6 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         
     }
     
-    func keyboardWillShow() {
-        print("keyboard popping up!")
-    }
-    
     var resultString = ""
 
     var delegate:ConvertCurrencyViewControllerDelegate! = nil
@@ -101,6 +97,8 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
 //        NotificationCenter.default.addObserver(self, selector: #selector(ConvertCurrencyViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 //        
 //        NotificationCenter.default.addObserver(self, selector: #selector(ConvertCurrencyViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -114,8 +112,18 @@ class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
 // Text Field delegates
+    
+    // Notifications
     func keyboardWillShow(notification:Notification) {
         print("keyboard will show now. hide the picker")
+        toCurrencyPicker.isHidden = true
+        
+    }
+    
+    func keyboardWillHide(notification:Notification) {
+        print("keyboard will hide, show the picker")
+        toCurrencyPicker.isHidden = false
+        
     }
     
     // MARK: - Navigation
