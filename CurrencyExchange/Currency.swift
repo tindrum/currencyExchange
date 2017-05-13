@@ -101,6 +101,9 @@ class ExchangeRate: NSObject, NSCoding {
     
 }
 
+// TODO: Add a field for "lastConversion", so CurrencyTableView can show the flag
+//       of the to-> currency along with each country in that table.
+//       
 
 class Currency: NSObject, NSCoding, Comparable {
     //MARK: Properties

@@ -18,6 +18,30 @@ protocol ConvertCurrencyViewControllerDelegate {
 //    
 //}
 
+// Todo: Layout: fix all constraints to be conformant.
+//       make layout responsive for more devices.
+//       
+// TODO: Fix refresh when choosing different currency,
+//       so converted amount updates immediately.
+//       Right now, last conversion stays in convert to label
+//       until user edits text.
+//
+// TODO: Fix crash when user enters two decimal places.
+//       If user enters "10.01." <- at this point, it crashes.
+//       Probably need to validate all input on the text field.
+//
+// TODO: Pass back the last-used conversion.
+//       The delegate method and protocol already exist to pass back
+//       the last country used, but it isn't being passed back
+//       when the segue is started.
+//       Most of the functionality would be in the CurrencyTableWiewController for this.
+//
+// TODO: Display the date of the last time the exchange rate was updated.
+//       The date updated is already an instance variable of the Currency class.
+//
+// TODO: Add button to force-update the exchange rate.
+
+
 
 class ConvertCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     var worldCurrencies = CurrencyArraySingleton.sharedInstance

@@ -8,6 +8,8 @@
 
 import UIKit
 
+// TODO: Make this view less ugly.
+
 class WelcomeViewController: UIViewController {
     var worldCurrencies = CurrencyArraySingleton.sharedInstance
     @IBAction func resetToDefaults(_ sender: UIButton) {

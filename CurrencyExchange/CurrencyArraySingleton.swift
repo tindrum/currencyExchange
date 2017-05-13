@@ -9,6 +9,18 @@
 import Foundation
 import UIKit
 
+
+// TODO: Refactor to control the times when the currency data is updated.
+//       It refreshes quite often.
+//
+// TODO: Refactor, along with Currency, to put model info in the model, 
+//       and view info in the view. 
+//       CurrencyArraySingleton crosses the lines between being a model and a view, 
+//       so figure out what it really is (a model of all currencies, I think)
+//       and put more of the work into the true ViewControllers.
+//       This would require a thoughtful rework of what helper functions are in this class,
+//       which should be in the Currency class, and which should be in the true View classes that use these models.
+
 class CurrencyArraySingleton {
     static let sharedInstance = CurrencyArraySingleton()
     var worldCurrencies = [Currency]()

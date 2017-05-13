@@ -8,6 +8,13 @@
 
 import UIKit
 
+// TODO: Implement functionality in protocol/delegate from ConvertCurrencyViewController
+//       to remember the last currency converted.
+//       The CurrencyTableView can show the flag of the last country used,
+//       and tell the ConvertCurrencyViewController to pick that item from the picker
+//       (if it's still available, so more logic there, too).
+//       It would also require a new field in the Currency object to hold "lastConversion".
+
 class CurrencyTableViewController: UITableViewController, ConvertCurrencyViewControllerDelegate {
     //MARK: Properties
 //    var currencies = [Currency]()
